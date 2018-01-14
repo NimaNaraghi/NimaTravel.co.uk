@@ -23,6 +23,9 @@ $config = [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -50,7 +53,15 @@ $config = [
             'rules' => [
             ],
         ],
-        
+        'view' => [
+            'theme' => [
+                'basePath' => '@app/themes/basic',
+                'baseUrl' => '@web/themes/basic',
+                'pathMap' => [
+                    '@app/views' => '@app/themes/basic/views',
+                ],
+            ],
+        ],
     ],
     'modules' => [
         'admin' => [
