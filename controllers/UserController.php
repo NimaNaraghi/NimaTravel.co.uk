@@ -27,6 +27,11 @@ class UserController extends \yii\web\Controller
             ],
         ];
     }
+    public function actionUserHome()
+    {
+        return $this->render('userhome');
+    }
+
     public function actionAccount()
     {
     	$model = UserAccount::findOne(Yii::$app->user->identity->id);

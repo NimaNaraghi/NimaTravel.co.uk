@@ -1,210 +1,54 @@
-<p align="center">
-    <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
-    </a>
-    <h1 align="center">Yii 2 Basic Project Template</h1>
-    <br>
-</p>
+Online travel planning: A reverse auction solution
 
-Yii 2 Basic Project Template is a skeleton [Yii 2](http://www.yiiframework.com/) application best for
-rapidly creating small projects.
+Nima Naraghi | MSc Project | 2018 
+Aims
+•	To investigate pros and cons of online self-booking vs traditional booking in travel section
+•	To explore whether a reverse auction approach can decrease the drawbacks of online self-booking by providing a novel channel for traditional travel agents 
+•	To develop a web application to materialize a reverse auction online platform for online travel planning purposes which provide a new channel not only for traditional travel agencies but also other travel suppliers such as hotel to reach their potential users
+Objectives
+1.	Review the literature to extract the problems of searching online to purchase travel services such as the time-consuming and confusing process of researching the internet to purchase a travel service. Additionally, similar applications that exploited reverse auction in travel section or any other related domains will be studied.
+2.	Explore reverse auction model as an alternative solution to address the disadvantages of currently popular models
+3.	Identify the requirements for developing a web application using PHP to provide online travel planning based on reverse auction
+4.	Research tools, platforms, and APIs that might be helpful such as PHP frameworks and free services and APIs provided by popular online travel agencies including TripAdvisor
+5.	The web application will be tested deliberately through white box and black box test approaches
+6.	Development of the web application consists of three major sections as follows:
+a.	A sub-application that allows users who tend to plan their travel interact with the application
+b.	A sub-application that allows suppliers such as travel agencies, hotels, and airlines interact with the application
+c.	A control panel that enables admins or other roles to manage the entire application 
+7.	Evaluate the web application by:
+a.	Designing a questionnaire
+b.	Inviting a group of users to use the application as travel planners while the supplier’s role will be simulated and answering the questions in the questionnaire
+c.	Analyzing the feedbacks to answer the research question
+Justification
+The outcome is a web application that allows the users - who tend to plan their travel - register their preferences so that they receive relevant offers from the suppliers subsequently. On the other hand, it enables the suppliers such as travel agencies and hotels to offer their deals in response to the users’ inputs.  Finally, it includes a control panel which allows administrators to verify the suppliers and manage various parts of the system like user preferences. As a result, the advantages are briefed as follows:
+•	The users will not need to spend too much time and energy to search on internet to plan their travel
+•	There will be no need for using platforms based on artificial intelligence for suppliers to know their potential customers’ preferences
+•	It helps traditional travel agencies to participate in online competitions effectively which is likely to revive many job opportunities and increases the quality of the services
+Methodology
+A WebE framework – introduced by Pressman and Lowe (2009) - will be adapted to the project to follow those agile principles which are relevant to this project (Agilemanifesto.org, n.d.) as well as a disciplinary methodology for developing the web application. Thanks to the framework, the development will progress based on software engineering best practices tailored to match characteristics of web applications in which an incremental process will be the cornerstone of the process. According to initial assessments, the essential requirements are categorized as follows:
+INFORMATION GOALS
+•	To provide users with the offers sent by the suppliers in response to their preferences
+•	To display the suppliers list and their details including location, services, and contact info
+•	To provide a sophisticated list of the users’ preferences for the suppliers
 
-The template contains the basic features including user login/logout and a contact page.
-It includes all commonly used configurations that would allow you to focus on adding new
-features to your application.
+APPLICATIVE GOALS
+•	To allow suppliers to reach their target audience via tools such as filters and search utilities
+•	To enable the suppliers to create and manage their offers 
+•	To enable the suppliers to send their offers to their target users
+•	To allow the users to send their response to the suppliers to show whether they are interested in their offers or not
+•	To allow the suppliers to connect their packages to 3rd-party sources such as TripAdvisor to ease the access to users generated contents
+•	To allow admins to verify the suppliers’ identity before they can start using the web application
+•	To Allow admins to manage users and suppliers as moderators to make sure they follow the conditions of using the web application
+Considering the information and applicative goals, the main outcome of the increments is estimated as follows:
+Increment 1 – A module that allows its visitors to signup as users, then register their preferences in the web application and some parts of the control panel which is essential to input preferences.
+Increment 2 – A module which enables the suppliers to interact with the system to reach their target audience
+Increment 3 – The web application includes a control panel for the admins to manage the users, suppliers and preferences.
+MAIN TECHNOLOGIES
+Type	Name(s)
+Programming language	PHP, Javascript
+Framework	Yii 2, Bootstrap 3
+Database	MySQL
+Library	JQuery
+Version Control System	GIT
+Repository	https://bitbucket.org/
 
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-app-basic/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Total Downloads](https://poser.pugx.org/yiisoft/yii2-app-basic/downloads.png)](https://packagist.org/packages/yiisoft/yii2-app-basic)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-app-basic.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-app-basic)
-
-DIRECTORY STRUCTURE
--------------------
-
-      assets/             contains assets definition
-      commands/           contains console commands (controllers)
-      config/             contains application configurations
-      controllers/        contains Web controller classes
-      mail/               contains view files for e-mails
-      models/             contains model classes
-      runtime/            contains files generated during runtime
-      tests/              contains various tests for the basic application
-      vendor/             contains dependent 3rd-party packages
-      views/              contains view files for the Web application
-      web/                contains the entry script and Web resources
-
-
-
-REQUIREMENTS
-------------
-
-The minimum requirement by this project template that your Web server supports PHP 5.4.0.
-
-
-INSTALLATION
-------------
-
-### Install via Composer
-
-If you do not have [Composer](http://getcomposer.org/), you may install it by following the instructions
-at [getcomposer.org](http://getcomposer.org/doc/00-intro.md#installation-nix).
-
-You can then install this project template using the following command:
-
-~~~
-php composer.phar create-project --prefer-dist --stability=dev yiisoft/yii2-app-basic basic
-~~~
-
-Now you should be able to access the application through the following URL, assuming `basic` is the directory
-directly under the Web root.
-
-~~~
-http://localhost/basic/web/
-~~~
-
-### Install from an Archive File
-
-Extract the archive file downloaded from [yiiframework.com](http://www.yiiframework.com/download/) to
-a directory named `basic` that is directly under the Web root.
-
-Set cookie validation key in `config/web.php` file to some random secret string:
-
-```php
-'request' => [
-    // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-    'cookieValidationKey' => '<secret random string goes here>',
-],
-```
-
-You can then access the application through the following URL:
-
-~~~
-http://localhost/basic/web/
-~~~
-
-
-CONFIGURATION
--------------
-
-### Database
-
-Edit the file `config/db.php` with real data, for example:
-
-```php
-return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    'username' => 'root',
-    'password' => '1234',
-    'charset' => 'utf8',
-];
-```
-
-**NOTES:**
-- Yii won't create the database for you, this has to be done manually before you can access it.
-- Check and edit the other files in the `config/` directory to customize your application as required.
-- Refer to the README in the `tests` directory for information specific to basic application tests.
-
-
-TESTING
--------
-
-Tests are located in `tests` directory. They are developed with [Codeception PHP Testing Framework](http://codeception.com/).
-By default there are 3 test suites:
-
-- `unit`
-- `functional`
-- `acceptance`
-
-Tests can be executed by running
-
-```
-vendor/bin/codecept run
-```
-
-The command above will execute unit and functional tests. Unit tests are testing the system components, while functional
-tests are for testing user interaction. Acceptance tests are disabled by default as they require additional setup since
-they perform testing in real browser. 
-
-
-### Running  acceptance tests
-
-To execute acceptance tests do the following:  
-
-1. Rename `tests/acceptance.suite.yml.example` to `tests/acceptance.suite.yml` to enable suite configuration
-
-2. Replace `codeception/base` package in `composer.json` with `codeception/codeception` to install full featured
-   version of Codeception
-
-3. Update dependencies with Composer 
-
-    ```
-    composer update  
-    ```
-
-4. Download [Selenium Server](http://www.seleniumhq.org/download/) and launch it:
-
-    ```
-    java -jar ~/selenium-server-standalone-x.xx.x.jar
-    ```
-
-    In case of using Selenium Server 3.0 with Firefox browser since v48 or Google Chrome since v53 you must download [GeckoDriver](https://github.com/mozilla/geckodriver/releases) or [ChromeDriver](https://sites.google.com/a/chromium.org/chromedriver/downloads) and launch Selenium with it:
-
-    ```
-    # for Firefox
-    java -jar -Dwebdriver.gecko.driver=~/geckodriver ~/selenium-server-standalone-3.xx.x.jar
-    
-    # for Google Chrome
-    java -jar -Dwebdriver.chrome.driver=~/chromedriver ~/selenium-server-standalone-3.xx.x.jar
-    ``` 
-    
-    As an alternative way you can use already configured Docker container with older versions of Selenium and Firefox:
-    
-    ```
-    docker run --net=host selenium/standalone-firefox:2.53.0
-    ```
-
-5. (Optional) Create `yii2_basic_tests` database and update it by applying migrations if you have them.
-
-   ```
-   tests/bin/yii migrate
-   ```
-
-   The database configuration can be found at `config/test_db.php`.
-
-
-6. Start web server:
-
-    ```
-    tests/bin/yii serve
-    ```
-
-7. Now you can run all available tests
-
-   ```
-   # run all available tests
-   vendor/bin/codecept run
-
-   # run acceptance tests
-   vendor/bin/codecept run acceptance
-
-   # run only unit and functional tests
-   vendor/bin/codecept run unit,functional
-   ```
-
-### Code coverage support
-
-By default, code coverage is disabled in `codeception.yml` configuration file, you should uncomment needed rows to be able
-to collect code coverage. You can run your tests and collect coverage with the following command:
-
-```
-#collect coverage for all tests
-vendor/bin/codecept run -- --coverage-html --coverage-xml
-
-#collect coverage only for unit tests
-vendor/bin/codecept run unit -- --coverage-html --coverage-xml
-
-#collect coverage for unit and functional tests
-vendor/bin/codecept run functional,unit -- --coverage-html --coverage-xml
-```
-
-You can see code coverage output under the `tests/_output` directory.
