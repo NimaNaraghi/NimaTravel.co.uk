@@ -4,12 +4,13 @@ namespace app\controllers;
 use Yii;
 use app\models\UserAccount;
 use app\models\ChangePasswordForm;
-use app\modules\payment\models\ManualPayment;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use app\models\User;
 use app\models\Profile;
 use app\models\Buy;
+use app\models\PreferenceForm;
+
 
 class UserController extends \yii\web\Controller
 {
@@ -29,7 +30,11 @@ class UserController extends \yii\web\Controller
     }
     public function actionUserHome()
     {
-        return $this->render('userhome');
+        $preferenceForm = new PreferenceForm;
+        
+        return $this->render('userhome', [
+            'preferenceForm' => $preferenceForm,
+        ]);
     }
 
     public function actionAccount()

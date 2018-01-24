@@ -12,6 +12,7 @@ class m180117_183001_create_junction_tables extends Migration
      */
     public function safeUp()
     {
+       
         $this->createTable("preference_climate", [
             'preference_id' => $this->integer()->notNull(),
             'climate_id' => $this->integer()->notNull(),
@@ -26,7 +27,7 @@ class m180117_183001_create_junction_tables extends Migration
             'activity_id' => $this->integer()->notNull(),
         ], "ENGINE=InnoDB");
         $this->addPrimaryKey('preference_activity_pk', 'preference_activity', ['preference_id', 'activity_id']);
-        $this->addForeignKey("preference_activity_preference_fk", "preference_climate", "preference_id", "preference", "id", "CASCADE", "CASCADE");
+        $this->addForeignKey("preference_activity_preference_fk", "preference_activity", "preference_id", "preference", "id", "CASCADE", "CASCADE");
         $this->addForeignKey("preference_activity_activity_fk", "preference_activity", "activity_id", "activity", "id", "CASCADE", "CASCADE");
 
         $this->createTable("preference_accommodation_feature", [
@@ -34,7 +35,7 @@ class m180117_183001_create_junction_tables extends Migration
             'accommodation_feature_id' => $this->integer()->notNull(),
         ], "ENGINE=InnoDB");
         $this->addPrimaryKey('preference_accommodation_feature_pk', 'preference_accommodation_feature', ['preference_id', 'accommodation_feature_id']);
-        $this->addForeignKey("preference_accommodation_feature_preference_fk", "preference_climate", "preference_id", "preference", "id", "CASCADE", "CASCADE");
+        $this->addForeignKey("preference_accommodation_feature_preference_fk", "preference_accommodation_feature", "preference_id", "preference", "id", "CASCADE", "CASCADE");
         $this->addForeignKey("preference_accommodation_feature_accommodation_feature_fk", "preference_accommodation_feature", "accommodation_feature_id", "accommodation_feature", "id", "CASCADE", "CASCADE");
 
         $this->createTable("preference_accessibility", [
@@ -42,7 +43,7 @@ class m180117_183001_create_junction_tables extends Migration
             'accessibility_id' => $this->integer()->notNull(),
         ], "ENGINE=InnoDB");
         $this->addPrimaryKey('preference_accessibility_pk', 'preference_accessibility', ['preference_id', 'accessibility_id']);
-        $this->addForeignKey("preference_accessibility_preference_fk", "preference_climate", "preference_id", "preference", "id", "CASCADE", "CASCADE");
+        $this->addForeignKey("preference_accessibility_preference_fk", "preference_accessibility", "preference_id", "preference", "id", "CASCADE", "CASCADE");
         $this->addForeignKey("preference_accessibility_accessibility_fk", "preference_accessibility", "accessibility_id", "accessibility", "id", "CASCADE", "CASCADE");
 
         $this->createTable("preference_accommodation_type", [
@@ -50,7 +51,7 @@ class m180117_183001_create_junction_tables extends Migration
             'accommodation_type_id' => $this->integer()->notNull(),
         ], "ENGINE=InnoDB");
         $this->addPrimaryKey('preference_accommodation_type_pk', 'preference_accommodation_type', ['preference_id', 'accommodation_type_id']);
-        $this->addForeignKey("preference_accommodation_type_preference_fk", "preference_climate", "preference_id", "preference", "id", "CASCADE", "CASCADE");
+        $this->addForeignKey("preference_accommodation_type_preference_fk", "preference_accommodation_type", "preference_id", "preference", "id", "CASCADE", "CASCADE");
         $this->addForeignKey("preference_accommodation_type_accommodation_type_fk", "preference_accommodation_type", "accommodation_type_id", "accommodation_type", "id", "CASCADE", "CASCADE");
 
         $this->createTable("preference_board_basis", [
@@ -58,7 +59,7 @@ class m180117_183001_create_junction_tables extends Migration
             'board_basis_id' => $this->integer()->notNull(),
         ], "ENGINE=InnoDB");
         $this->addPrimaryKey('preference_board_basis_pk', 'preference_board_basis', ['preference_id', 'board_basis_id']);
-        $this->addForeignKey("preference_board_basis_preference_fk", "preference_climate", "preference_id", "preference", "id", "CASCADE", "CASCADE");
+        $this->addForeignKey("preference_board_basis_preference_fk", "preference_board_basis", "preference_id", "preference", "id", "CASCADE", "CASCADE");
         $this->addForeignKey("preference_board_basis_board_basis_fk", "preference_board_basis", "board_basis_id", "board_basis", "id", "CASCADE", "CASCADE");
 
         $this->createTable("preference_style", [
@@ -66,7 +67,7 @@ class m180117_183001_create_junction_tables extends Migration
             'style_id' => $this->integer()->notNull(),
         ], "ENGINE=InnoDB");
         $this->addPrimaryKey('preference_style_pk', 'preference_style', ['preference_id', 'style_id']);
-        $this->addForeignKey("preference_style_preference_fk", "preference_climate", "preference_id", "preference", "id", "CASCADE", "CASCADE");
+        $this->addForeignKey("preference_style_preference_fk", "preference_style", "preference_id", "preference", "id", "CASCADE", "CASCADE");
         $this->addForeignKey("preference_style_style_fk", "preference_style", "style_id", "style", "id", "CASCADE", "CASCADE");
 
         $this->createTable("preference_video", [
@@ -74,7 +75,7 @@ class m180117_183001_create_junction_tables extends Migration
             'video_id' => $this->integer()->notNull(),
         ], "ENGINE=InnoDB");
         $this->addPrimaryKey('preference_video_pk', 'preference_video', ['preference_id', 'video_id']);
-        $this->addForeignKey("preference_video_preference_fk", "preference_climate", "preference_id", "preference", "id", "CASCADE", "CASCADE");
+        $this->addForeignKey("preference_video_preference_fk", "preference_video", "preference_id", "preference", "id", "CASCADE", "CASCADE");
         $this->addForeignKey("preference_video_video_fk", "preference_video", "video_id", "video", "id", "CASCADE", "CASCADE");
     }
 
@@ -88,12 +89,12 @@ class m180117_183001_create_junction_tables extends Migration
         $this->dropTable("preference_climate");
         
         $this->dropForeignKey("preference_activity_preference_fk", "preference_activity");
-        $this->dropForeignKey("preference_activity_activity_fk", "preference_activity");
+        $this->dropForeignKey("preference_activity_preference_fk", "preference_activity");
         $this->dropTable("preference_activity");
         
         $this->dropForeignKey("preference_accommodation_feature_preference_fk", "preference_accommodation_feature");
         $this->dropForeignKey("preference_accommodation_feature_accommodation_feature_fk", "preference_accommodation_feature");
-        $this->dropTable("preference_accommodation_feature_preference");
+        $this->dropTable("preference_accommodation_feature");
         
         $this->dropForeignKey("preference_accessibility_preference_fk", "preference_accessibility");
         $this->dropForeignKey("preference_accessibility_accessibility_fk", "preference_accessibility");

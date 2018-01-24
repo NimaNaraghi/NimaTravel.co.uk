@@ -48,5 +48,6 @@ class m180117_174024_create_more_interests_table extends Migration
         $this->dropTable('accommodation_type');
         $this->dropTable('board_basis');
         $this->dropTable('style');
+        $this->dropTable('video');
     }
 }

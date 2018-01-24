@@ -21,9 +21,9 @@ class m180117_143741_create_table_preference extends Migration
             'return_date' => $this->integer(),
             'max_budget' => $this->money(),
             'adults' => $this->integer(),
-            'childrens' => $this->integer(),
+            'children' => $this->integer(),
             'departure_location' => $this->string()->defaultValue(NULL),
-            'favourit_destinations' => $this->text()->defaultValue(NULL),
+            'favourite_destinations' => $this->text()->defaultValue(NULL),
             'comment' => $this->text()->defaultValue(NULL),
             'status' => $this->integer(),
         ], "ENGINE=InnoDB");
