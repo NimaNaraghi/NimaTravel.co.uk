@@ -1,12 +1,13 @@
 <?php
 
 namespace app\modules\admin;
-
+use Yii;
 /**
  * admin module definition class
  */
 class Module extends \yii\base\Module
 {
+    public $layout = '@app/modules/admin/views/layouts/main.php';
     /**
      * @inheritdoc
      */
@@ -19,6 +20,6 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        // custom initialization code goes here
+        Yii::setAlias('@preferenceImages', '@app/web/images/preferences/');
     }
 }

@@ -103,46 +103,12 @@ $this->title = Yii::t('app', 'Home');
           <h3 class="panel-title">What kind of climates do you like?</h3>
         </div>
         <div class="panel-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-            </div>
+            <?= $this->render('_interestpanel',[
+                'options' => $preferenceForm->getClimateOptions(),
+                'className'  => app\modules\admin\models\Climate::tableName(),
+                ]); ?>
+            
+            
         </div>
     </div>
     <div class="panel panel-default">
@@ -150,46 +116,12 @@ $this->title = Yii::t('app', 'Home');
           <h3 class="panel-title">Which accommodation features are important to you?</h3>
         </div>
         <div class="panel-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-            </div>
+            <?= $this->render('_interestpanel',[
+                'options' => $preferenceForm->getAccommodationFeatureOptions(),
+                'className'  => app\modules\admin\models\AccommodationFeature::tableName(),
+                ]); ?>
+            
+            
         </div>
     </div>
     <div class="panel panel-default">
@@ -197,178 +129,44 @@ $this->title = Yii::t('app', 'Home');
           <h3 class="panel-title">What activities do you like to do in your travel?</h3>
         </div>
         <div class="panel-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-            </div>
+            <?= $this->render('_interestpanel',[
+                'options' => $preferenceForm->getActivityOptions(),
+                'className'  => app\modules\admin\models\Activity::tableName(),
+                ]); ?>
+           
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">What activities do you like to do in your travel?</h3>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">What is your style in this travel?</h3>
         </div>
         <div class="panel-body">
-            <div class="row">
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-2">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-            </div>
+            <?= $this->render('_interestpanel',[
+                'options' => $preferenceForm->getStyleOptions(),
+                'className'  => app\modules\admin\models\Style::tableName(),
+                ]); ?>
+            
         </div>
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Which one of these videos describe your dream travel? </h3>
         </div>
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-3">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-3">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-3">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-3">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-3">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-3">
-                    <img src="/web/images/140x140b.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                <div class="col-md-3">
-                    <img src="/web/images/140x140.jpg" class="img-responsive" alt="Responsive image">
-                </div>
-                
+        
+           <div class="panel-body"> 
+               <div class="row">
+        <?php foreach($preferenceForm->getVideoOptions() as $video): ?>
+              
+        <div class="col-md-6">
+            <div class="interest-video">
+                <?= $video->link ?>
             </div>
         </div>
+            
+            <?php                endforeach; ?>
+               </div>
+           </div>
     </div>
 </div>
 

@@ -8,6 +8,7 @@ use app\modules\admin\models\AccommodationFeatureSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * AccommodationfeatureController implements the CRUD actions for AccommodationFeature model.
@@ -66,7 +67,13 @@ class AccommodationfeatureController extends Controller
     {
         $model = new AccommodationFeature();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if(!$model->save()){
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -86,7 +93,13 @@ class AccommodationfeatureController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if(!$model->save()){
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

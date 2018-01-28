@@ -116,7 +116,26 @@ a.desc:after {
 
 
 /* Nima */
-
+.interest-item{
+    
+    
+}
+.interest-title{
+    
+}
 .no-list-style{
     list-style-type: none;
+}
+
+.interest-image{
+    display: inline;
+    margin: 3px;
+}
+.interest-container{
+    margin: auto;
+}
+
+.interest-video iframe{
+  width: 100%;
+  height: 150px;
 }

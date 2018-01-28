@@ -30,6 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'title',
+            [
+                'attribute' => 'ImageFile',
+                'value' => Html::img($model->getImageURL()),
+                'format' => 'html'
+            ]
         ],
     ]) ?>
 

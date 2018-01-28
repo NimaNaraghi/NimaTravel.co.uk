@@ -4,6 +4,11 @@ namespace app\models;
 
 use Yii;
 use app\modules\admin\models\Accessibility;
+use app\modules\admin\models\Climate;
+use app\modules\admin\models\AccommodationFeature;
+use app\modules\admin\models\Style;
+use app\modules\admin\models\Activity;
+use app\modules\admin\models\Video;
 /**
  * This is the model class for table "preference".
  *

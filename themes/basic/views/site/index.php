@@ -6,5 +6,5 @@ use yii\bootstrap\Modal;
 $this->title = Yii::t('app','Home');
 
 
-//$this->params['counter'] =  app\components\CounterWidget::widget(['endDate' => $model->getEnd(),'model'=>$model]);
+
 ?>

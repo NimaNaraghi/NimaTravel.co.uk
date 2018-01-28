@@ -49,4 +49,25 @@ class PreferenceForm extends Preference
     {
         return \app\modules\admin\models\BoardBasis::find()->all();
     }
+    
+    public static function getClimateOptions()
+    {
+        return \app\modules\admin\models\Climate::find()->all();
+    }
+    public static function getAccommodationFeatureOptions()
+    {
+        return \app\modules\admin\models\AccommodationFeature::find()->all();
+    }
+    public static function getStyleOptions()
+    {
+        return \app\modules\admin\models\Style::find()->all();
+    }
+    public static function getActivityOptions()
+    {
+        return \app\modules\admin\models\Activity::find()->all();
+    }
+    public static function getVideoOptions()
+    {
+        return \app\modules\admin\models\Video::find()->all();
+    }
 }

@@ -8,6 +8,7 @@ use app\modules\admin\models\StyleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * StyleController implements the CRUD actions for Style model.
@@ -66,7 +67,13 @@ class StyleController extends Controller
     {
         $model = new Style();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if(!$model->save()){
+                return $this->render('update', [
+                    'model' => $model,
+                ]);
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
