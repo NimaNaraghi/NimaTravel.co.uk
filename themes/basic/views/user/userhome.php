@@ -9,12 +9,13 @@ use yii\helpers\Url;
 use kartik\daterange\DateRangePicker;
 use kartik\widgets\ActiveForm;
 use kartik\checkbox\CheckboxX;
-
+use \yii\helpers\StringHelper;
 
 $this->title = Yii::t('app', 'Home');
 ?>
-<div class="col-md-4">
-    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+<?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+<div class="col-md-3">
+    
     <?php
     
         echo $form->field($preferenceForm, 'date_range', [
@@ -33,79 +34,38 @@ $this->title = Yii::t('app', 'Home');
         echo $form->field($preferenceForm, 'comment')->textarea();
         echo $form->field($preferenceForm, 'departure_location');
         echo $form->field($preferenceForm, 'favourite_destinations');
+       
+        echo $this->render('_interesttextpanel',[
+            'header' => "Accommodation Type",
+            'form' => $preferenceForm->formName(),
+            'options' => $preferenceForm->getAccommodationTypeOptions(),
+        ]);
         
-        echo Html::beginTag("ul",['class'=>'no-list-style']);
-        echo Html::tag("H4", "Accessibility");
-        foreach ($preferenceForm->getAccessibilitiesOptions() as $accessibility){
-            echo Html::beginTag("li");
-            
-            echo CheckboxX::widget([
-                'name'=>'accessibility_' . $accessibility->id,
-                'options'=>['id'=>'accessibility_' . $accessibility->id],
-                'pluginOptions'=>['threeState'=>false],
-                    'autoLabel' => true,
-                    'labelSettings' => [
-                        'label' => $accessibility->title,
-                        'position' => CheckboxX::LABEL_RIGHT
-                    ]
-                ]);
-            echo Html::beginTag("li");
-        }
-        echo Html::endTag("ul");
+        echo $this->render('_interesttextpanel',[
+            'header' => "Board Basis",
+            'form' => $preferenceForm->formName(),
+            'options' => $preferenceForm->getBoardBasesOptions(),
+        ]);
         
-        //Accommodation Type
-        echo Html::beginTag("ul",['class'=>'no-list-style']);
-        echo Html::tag("H4", "Accommodation Type");
-        foreach ($preferenceForm->getAccommodationTypeOptions() as $accommodationType){
-            echo Html::beginTag("li");
-            
-            echo CheckboxX::widget([
-                'name'=>'accommodationtype_' . $accommodationType->id,
-                'options'=>['id'=>'accommodationtype_' . $accommodationType->id],
-                'pluginOptions'=>['threeState'=>false],
-                    'autoLabel' => true,
-                    'labelSettings' => [
-                        'label' => $accommodationType->title,
-                        'position' => CheckboxX::LABEL_RIGHT
-                    ]
-                ]);
-            echo Html::beginTag("li");
-        }
-        echo Html::endTag("ul");
+        echo $this->render('_interesttextpanel',[
+            'header' => "Accessibility",
+            'form' => $preferenceForm->formName(),
+            'options' => $preferenceForm->getAccessibilitiesOptions(),
+        ]);
         
-        //Accommodation Type
-        echo Html::beginTag("ul",['class'=>'no-list-style']);
-        echo Html::tag("H4", "Board Basis");
-        foreach ($preferenceForm->getBoardBasesOptions() as $boardBases){
-            echo Html::beginTag("li");
-            
-            echo CheckboxX::widget([
-                'name'=>'boardBases_' . $boardBases->id,
-                'options'=>['id'=>'boardBases_' . $boardBases->id],
-                'pluginOptions'=>['threeState'=>false],
-                    'autoLabel' => true,
-                    'labelSettings' => [
-                        'label' => $boardBases->title,
-                        'position' => CheckboxX::LABEL_RIGHT
-                    ]
-                ]);
-            echo Html::beginTag("li");
-        }
-        echo Html::endTag("ul");
     ?>
-    <?php ActiveForm::end(); ?>
-    <button class="btn btn-success btn-lg col-lg-12">Submit!</button>
+    
 </div>
 
-<div class="col-md-8">
+<div class="col-md-9">
     <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">What kind of climates do you like?</h3>
         </div>
         <div class="panel-body">
-            <?= $this->render('_interestpanel',[
+            <?= $this->render('_interestimagepanel',[
                 'options' => $preferenceForm->getClimateOptions(),
-                'className'  => app\modules\admin\models\Climate::tableName(),
+                'form'  => $preferenceForm->formName(),
                 ]); ?>
             
             
@@ -116,9 +76,9 @@ $this->title = Yii::t('app', 'Home');
           <h3 class="panel-title">Which accommodation features are important to you?</h3>
         </div>
         <div class="panel-body">
-            <?= $this->render('_interestpanel',[
+            <?= $this->render('_interestimagepanel',[
                 'options' => $preferenceForm->getAccommodationFeatureOptions(),
-                'className'  => app\modules\admin\models\AccommodationFeature::tableName(),
+                'form'  => $preferenceForm->formName(),
                 ]); ?>
             
             
@@ -129,9 +89,9 @@ $this->title = Yii::t('app', 'Home');
           <h3 class="panel-title">What activities do you like to do in your travel?</h3>
         </div>
         <div class="panel-body">
-            <?= $this->render('_interestpanel',[
+            <?= $this->render('_interestimagepanel',[
                 'options' => $preferenceForm->getActivityOptions(),
-                'className'  => app\modules\admin\models\Activity::tableName(),
+                'form'  => $preferenceForm->formName(),
                 ]); ?>
            
         </div>
@@ -142,9 +102,9 @@ $this->title = Yii::t('app', 'Home');
           <h3 class="panel-title">What is your style in this travel?</h3>
         </div>
         <div class="panel-body">
-            <?= $this->render('_interestpanel',[
+            <?= $this->render('_interestimagepanel',[
                 'options' => $preferenceForm->getStyleOptions(),
-                'className'  => app\modules\admin\models\Style::tableName(),
+                'form'  => $preferenceForm->formName(),
                 ]); ?>
             
         </div>
@@ -160,7 +120,20 @@ $this->title = Yii::t('app', 'Home');
               
         <div class="col-md-6">
             <div class="interest-video">
+                
                 <?= $video->link ?>
+                <?php
+                    echo CheckboxX::widget([
+                        'name' => $preferenceForm->formName() . '[' . $video->formName() . '][]',
+                        'options' => ['id' => $preferenceForm->formName() . '-' . $video->formName() . '-' . $video->id],
+                        'pluginOptions' => ['threeState' => false],
+                        'autoLabel' => true,
+                        'labelSettings' => [
+                            'label' => '<h3>' . $video->title . '</h3>',
+                            'position' => CheckboxX::LABEL_RIGHT
+                        ]
+                    ]);
+                ?>
             </div>
         </div>
             
@@ -169,5 +142,7 @@ $this->title = Yii::t('app', 'Home');
            </div>
     </div>
 </div>
-
+<button class="btn btn-success btn-lg col-lg-12">Submit!</button>
+<?php ActiveForm::end(); ?>
+    
 

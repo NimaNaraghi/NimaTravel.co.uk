@@ -31,6 +31,10 @@ class UserController extends \yii\web\Controller
     public function actionUserHome()
     {
         $preferenceForm = new PreferenceForm;
+        if(isset($_POST['PreferenceForm'])){
+            print_r($_POST);
+            die;
+        }
         
         return $this->render('userhome', [
             'preferenceForm' => $preferenceForm,
