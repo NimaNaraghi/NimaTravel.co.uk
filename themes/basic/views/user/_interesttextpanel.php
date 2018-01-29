@@ -13,7 +13,7 @@ foreach ($options as $option) {
     echo Html::beginTag("li");
 
     echo CheckboxX::widget([
-        'name' => $form . '[' . $option->formName() . '][]',
+        'name' => $form . '[' . $option->formName() . '][' . $option->id . ']',
         'options' => ['id' => $form . '-' . $option->formName() . '-' . $option->id],
         'pluginOptions' => ['threeState' => false],
         'autoLabel' => true,

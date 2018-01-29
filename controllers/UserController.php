@@ -9,7 +9,7 @@ use yii\filters\AccessControl;
 use app\models\User;
 use app\models\Profile;
 use app\models\Buy;
-use app\models\PreferenceForm;
+use app\models\Preference;
 
 
 class UserController extends \yii\web\Controller
@@ -30,14 +30,24 @@ class UserController extends \yii\web\Controller
     }
     public function actionUserHome()
     {
-        $preferenceForm = new PreferenceForm;
-        if(isset($_POST['PreferenceForm'])){
-            print_r($_POST);
-            die;
+        $preference = new Preference;
+        
+        if($preference->load(Yii::$app->request->post())){
+            $post = Yii::$app->request->post();
+//            print_r(var_dump($preference->Climate));
+//            die;
+            $preference->setDates();
+            if(!$preference->save()){
+                echo "save error";
+                die(print_r($preference->errors));
+            }
+            
+        }else{
+            //die(print_r($preference->errors));
         }
         
         return $this->render('userhome', [
-            'preferenceForm' => $preferenceForm,
+            'preferenceForm' => $preference,
         ]);
     }
 

@@ -1,6 +1,6 @@
 <?php
 /*
- * @var $preferenceForm app\models\PreferenceForm
+ * @var $preferenceForm app\models\Preference
  * 
  */
 use yii\helpers\Html;
@@ -124,7 +124,7 @@ $this->title = Yii::t('app', 'Home');
                 <?= $video->link ?>
                 <?php
                     echo CheckboxX::widget([
-                        'name' => $preferenceForm->formName() . '[' . $video->formName() . '][]',
+                        'name' => $preferenceForm->formName() . '[' . $video->formName() . '][' . $video->id .']',
                         'options' => ['id' => $preferenceForm->formName() . '-' . $video->formName() . '-' . $video->id],
                         'pluginOptions' => ['threeState' => false],
                         'autoLabel' => true,

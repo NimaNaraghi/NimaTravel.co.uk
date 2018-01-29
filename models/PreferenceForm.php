@@ -14,14 +14,14 @@ use yii\base\Model;
 class PreferenceForm extends Preference
 {
     public $date_range;
-    public $climates;
-    public $activities;
-    public $accommodationFeature;
-    public $accessibility;
-    public $accommodationType;
-    public $boardBases;
-    public $styles;
-    public $videos;
+    public $Climate;
+    public $Activity;
+    public $AccommodationFeature;
+    public $Accessibility;
+    public $AccommodationType;
+    public $BoardBases;
+    public $Style;
+    public $Video;
     
 
 
@@ -30,9 +30,28 @@ class PreferenceForm extends Preference
      */
     public function rules()
     {
-        return [
-            
-        ];
+        $rules = parent::rules();
+        $rules[] = ['date_range', 'required'] ;
+        $rules[] = [['Climate','Activity','AccommodationFeature','Accessibility','AccommodationType','BoardBases','Style','Video'],'safe'];
+        return $rules;
+    }
+    
+    public function beforeSave($insert) {
+        parent::beforeSave($insert);
+        $this->setDates();
+    }
+    
+
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+    }
+    
+    public function setDates()
+    {
+        $dates = explode($this->date_range, "-");
+        $this->departure_date = strtotime($dates[0]);
+        $this->return_date = strtotime($dates[1]);
+        
     }
 
     public static function getAccessibilitiesOptions()

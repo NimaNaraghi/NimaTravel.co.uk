@@ -9,6 +9,8 @@ use app\modules\admin\models\AccommodationFeature;
 use app\modules\admin\models\Style;
 use app\modules\admin\models\Activity;
 use app\modules\admin\models\Video;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 /**
  * This is the model class for table "preference".
  *
@@ -46,6 +48,16 @@ use app\modules\admin\models\Video;
  */
 class Preference extends \yii\db\ActiveRecord
 {
+    
+    public $date_range;
+    public $Climate;
+    public $Activity;
+    public $AccommodationFeature;
+    public $Accessibility;
+    public $AccommodationType;
+    public $BoardBases;
+    public $Style;
+    public $Video;
     /**
      * @inheritdoc
      */
@@ -53,6 +65,8 @@ class Preference extends \yii\db\ActiveRecord
     {
         return 'preference';
     }
+    
+
 
     /**
      * @inheritdoc
@@ -60,13 +74,111 @@ class Preference extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id'], 'required'],
-            [['user_id', 'created_at', 'updated_at', 'departure_date', 'return_date', 'adults', 'children', 'status'], 'integer'],
+            
+            ['date_range', 'validateDateRange','skipOnEmpty' => false],
+            ['adults','validateDateRange'],
+            [['adults', 'children', 'status','departure_date','return_date'], 'integer'],
             [['max_budget'], 'number'],
             [['favourite_destinations', 'comment'], 'string'],
             [['departure_location'], 'string', 'max' => 255],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['Climate','Activity','Accessibility','AccommodationFeature','AccommodationType','Style','BoardBases','Video'],'safe']
+//            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            
         ];
+    }
+    
+    public function validateDateRange($attribute, $params)
+    {
+        
+        if(empty($this->return_date) or empty($this->departure_date)){
+            
+            $this->addError($attribute, Yii::t('app', 'Date Range cannot be blank.'));
+            
+        }
+        
+    }
+    
+    
+    
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+        
+        $this->insertJunctionRelations($this->Climate, Climate::tableName());
+        $this->insertJunctionRelations($this->Accessibility, Accessibility::tableName());
+        $this->insertJunctionRelations($this->AccommodationFeature, AccommodationFeature::tableName());
+        $this->insertJunctionRelations($this->AccommodationType, \app\modules\admin\models\AccommodationType::tableName());
+        $this->insertJunctionRelations($this->Style, Style::tableName());
+        $this->insertJunctionRelations($this->Video, Video::tableName());
+        $this->insertJunctionRelations($this->Activity, Activity::tableName());
+        $this->insertJunctionRelations($this->BoardBases, \app\modules\admin\models\BoardBasis::tableName());
+        
+    }
+    
+    private function insertJunctionRelations($selectList,$table)
+    {
+        $tableName = $this->getJunctionTableName($table);
+        if(is_array($selectList)){
+            foreach($selectList as $key => $value)
+            {
+                if($value){
+                    Yii::$app->db->createCommand()->insert($tableName, [
+                        'preference_id' => $this->id,
+                        $table . '_id' => $key,
+                    ])->execute();
+                }
+            }
+        }
+    }
+    
+    protected function getJunctionTableName($table)
+    {
+        return $this->tableName() . "_" . $table;
+    }
+
+
+    public function setDates()
+    {
+        $dates = explode(" - ", $this->date_range);
+        
+        $this->departure_date = strtotime($dates[0]);
+        $this->return_date = strtotime($dates[1]);
+        //die(var_dump($this->departure_date)."***".var_dump($this->return_date));
+    }
+
+    public static function getAccessibilitiesOptions()
+    {
+        return \app\modules\admin\models\Accessibility::find()->all();
+    }
+    
+    public static function getAccommodationTypeOptions()
+    {
+        return \app\modules\admin\models\AccommodationType::find()->all();
+    }
+    
+    public static function getBoardBasesOptions()
+    {
+        return \app\modules\admin\models\BoardBasis::find()->all();
+    }
+    
+    public static function getClimateOptions()
+    {
+        return \app\modules\admin\models\Climate::find()->all();
+    }
+    public static function getAccommodationFeatureOptions()
+    {
+        return \app\modules\admin\models\AccommodationFeature::find()->all();
+    }
+    public static function getStyleOptions()
+    {
+        return \app\modules\admin\models\Style::find()->all();
+    }
+    public static function getActivityOptions()
+    {
+        return \app\modules\admin\models\Activity::find()->all();
+    }
+    public static function getVideoOptions()
+    {
+        return \app\modules\admin\models\Video::find()->all();
     }
 
     /**
@@ -88,6 +200,18 @@ class Preference extends \yii\db\ActiveRecord
             'favourite_destinations' => Yii::t('app', 'Favourite Destinations'),
             'comment' => Yii::t('app', 'Comment'),
             'status' => Yii::t('app', 'Status'),
+        ];
+    }
+    
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'user_id',
+                'updatedByAttribute' => false,
+            ],
         ];
     }
 
