@@ -67,6 +67,9 @@ $config = [
         'admin' => [
             'class' => 'app\modules\admin\Module'
         ],
+        'supplier' => [
+            'class' => 'app\modules\supplier\Module'
+        ],
     ],
     'params' => $params,
     
