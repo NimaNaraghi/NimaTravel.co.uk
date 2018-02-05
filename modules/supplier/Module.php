@@ -2,6 +2,7 @@
 
 namespace app\modules\supplier;
 
+use Yii;
 /**
  * supplier module definition class
  */
@@ -11,6 +12,8 @@ class Module extends \yii\base\Module
      * @inheritdoc
      */
     public $controllerNamespace = 'app\modules\supplier\controllers';
+    
+    public $defaultRoute = "preference";
 
     /**
      * @inheritdoc
@@ -19,6 +22,6 @@ class Module extends \yii\base\Module
     {
         parent::init();
 
-        // custom initialization code goes here
+        Yii::setAlias('@offerImages', '@app/web/images/offers/');
     }
 }

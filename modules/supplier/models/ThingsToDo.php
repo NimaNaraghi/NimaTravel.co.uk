@@ -20,6 +20,7 @@ use Yii;
  */
 class ThingsToDo extends \yii\db\ActiveRecord
 {
+    public $date_range;
     /**
      * @inheritdoc
      */
@@ -34,13 +35,45 @@ class ThingsToDo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['offer_id', 'title'], 'required'],
-            [['offer_id', 'begin_date', 'end_date'], 'integer'],
+            ['date_range', 'validateDateRange','skipOnEmpty' => false],
+            [['title'], 'required'],
+            //[['begin_date', 'end_date'], 'integer'],
             [['highlights', 'description'], 'string'],
             [['price'], 'number'],
             [['title'], 'string', 'max' => 255],
-            [['offer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Offer::className(), 'targetAttribute' => ['offer_id' => 'id']],
+            //[['offer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Offer::className(), 'targetAttribute' => ['offer_id' => 'id']],
         ];
+    }
+    
+    public function validateDateRange($attribute, $params)
+    {
+        
+        if(empty($this->end_date) or empty($this->begin_date)){
+            
+            $this->addError($attribute, Yii::t('app', 'Date Range cannot be blank.'));
+            
+        }
+        
+    }
+    
+    public function setDates()
+    {
+        $dates = explode(" - ", $this->date_range);
+        
+        $this->begin_date = strtotime($dates[0]);
+        $this->end_date = strtotime($dates[1]);
+        
+    }
+    
+    public function setDateRange()
+    {
+        $this->date_range = date('Y-m-d', $this->begin_date) . " - " . date('Y-m-d', $this->end_date);
+    }
+    
+    public function setReadableDateRange()
+    {
+        $this->begin_date = date('Y-m-d', $this->begin_date);
+        $this->end_date = date('Y-m-d', $this->end_date);
     }
 
     /**

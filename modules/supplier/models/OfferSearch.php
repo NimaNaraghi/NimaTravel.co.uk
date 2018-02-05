@@ -40,7 +40,7 @@ class OfferSearch extends Offer
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$options = [])
     {
         $query = Offer::find();
 
@@ -57,6 +57,11 @@ class OfferSearch extends Offer
             // $query->where('0=1');
             return $dataProvider;
         }
+        
+        if(isset($options['preferenceId'])){
+            $this->preference_id = $options['preferenceId'];
+  
+        }
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -70,6 +75,7 @@ class OfferSearch extends Offer
             'return_date' => $this->return_date,
             'created_at' => $this->created_at,
             'status' => $this->status,
+            'preference_id' => $this->preference_id,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])

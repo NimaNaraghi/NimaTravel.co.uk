@@ -5,9 +5,17 @@ namespace app\modules\supplier\controllers;
 use Yii;
 use app\modules\supplier\models\Offer;
 use app\modules\supplier\models\OfferSearch;
+use app\modules\supplier\models\OfferImage;
+use app\modules\supplier\models\OfferImageSearch;
+use app\modules\supplier\models\Room;
+use app\modules\supplier\models\RoomSearch;
+use app\modules\supplier\models\ThingsToDo;
+use app\modules\supplier\models\ThingsToDoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
+
 
 /**
  * OfferController implements the CRUD actions for Offer model.
@@ -24,6 +32,7 @@ class OfferController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'deleteOfferImage' => ['POST'],
                 ],
             ],
         ];
@@ -52,9 +61,67 @@ class OfferController extends Controller
      */
     public function actionView($id)
     {
+        $offerImage = new OfferImage();
+        if ($offerImage->load(Yii::$app->request->post())){
+            $offerImage->imageFile = UploadedFile::getInstance($offerImage, 'imageFile');
+            $offerImage->offer_id = $id;
+            $offerImage->save();
+        }
+        
+        $offerImageSearch = new OfferImageSearch();
+        $offerImageDataProvider = $offerImageSearch->search(Yii::$app->request->queryParams,['offerId' => $id]);
+        //
+        
+        $room = new Room();
+        if ($room->load(Yii::$app->request->post()) ){
+            $room->offer_id = $id;
+            $room->save();
+        }
+        
+        $roomSearch = new RoomSearch();
+        $roomDataProvider = $roomSearch->search(Yii::$app->request->queryParams,['offerId' => $id]);
+        
+        ///
+        $thingsToDo = new ThingsToDo();
+        
+        if ($thingsToDo->load(Yii::$app->request->post()) ){
+            $thingsToDo->offer_id = $id;
+            $thingsToDo->setDates();
+            $thingsToDo->save();
+        }
+        
+        $thingsToDoSearch = new ThingsToDoSearch();
+        $thingsToDoDataProvider = $thingsToDoSearch->search(Yii::$app->request->queryParams,['offerId' => $id]);
+        
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'offerImage' => $offerImage,
+            'offerImageDataProvider' => $offerImageDataProvider,
+            'room' => $room,
+            'roomDataProvider' => $roomDataProvider,
+            'thingsToDo' => $thingsToDo,
+            'thingsToDoDataProvider' => $thingsToDoDataProvider,
+            
         ]);
+    }
+    
+    public function actionDeleteOfferImage($id)
+    {
+        if (($model = OfferImage::findOne($id)) !== null) {
+            $model->delete();
+            $this->goBack();
+        }
+
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+    
+    public function actionDeleteRoom($id){
+        if (($model = Room::findOne($id)) !== null) {
+            $model->delete();
+            $this->goBack();
+        }
+
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
     /**

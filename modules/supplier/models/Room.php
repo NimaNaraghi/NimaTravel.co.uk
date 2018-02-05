@@ -29,10 +29,9 @@ class Room extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['offer_id', 'title'], 'required'],
-            [['offer_id'], 'integer'],
+            ['title', 'required'],
             [['title'], 'string', 'max' => 255],
-            [['offer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Offer::className(), 'targetAttribute' => ['offer_id' => 'id']],
+            //[['offer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Offer::className(), 'targetAttribute' => ['offer_id' => 'id']],
         ];
     }
 

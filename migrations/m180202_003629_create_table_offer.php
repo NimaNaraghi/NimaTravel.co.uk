@@ -16,6 +16,7 @@ class m180202_003629_create_table_offer extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
             'board_basis_id' => $this->integer()->defaultValue(NULL),
+            'preference_id' => $this->integer()->notNull(),
             'title' => $this->string()->notNull(),
             'price' => $this->money()->notNull(),
             'location' => $this->string()->defaultValue(NULL),
@@ -28,10 +29,12 @@ class m180202_003629_create_table_offer extends Migration
             'luggage_allowance' => $this->string(),
             'out_link' => $this->string()->defaultValue(NULL),
             'created_at' => $this->integer(),
+            'updated_at' => $this->integer(),
             'status' => $this->integer(),
         ], "ENGINE=InnoDB");
  
         $this->addForeignKey("fk_offer_user", "offer", "user_id", "user", "id", "CASCADE", "CASCADE");
+        $this->addForeignKey("fk_offer_preference", "offer", "preference_id", "preference", "id", "CASCADE", "CASCADE");
         $this->addForeignKey("fk_offer_board_basis", "offer", "board_basis_id", "board_basis", "id", "RESTRICT", "CASCADE");
     }
 
@@ -41,6 +44,7 @@ class m180202_003629_create_table_offer extends Migration
     public function safeDown()
     {
         $this->dropForeignKey("fk_offer_user", "offer");
+        $this->dropForeignKey("fk_offer_preference", "offer");
         $this->dropForeignKey("fk_offer_board_basis", "offer");
         $this->dropTable("offer");
     }

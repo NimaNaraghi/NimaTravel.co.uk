@@ -5,12 +5,16 @@ namespace app\modules\supplier\models;
 use Yii;
 use app\modules\admin\models\BoardBasis;
 use app\models\User;
+use app\models\Preference;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 /**
  * This is the model class for table "offer".
  *
  * @property int $id
  * @property int $user_id
  * @property int $board_basis_id
+ * @property int $preference_id
  * @property string $title
  * @property string $price
  * @property string $location
@@ -23,6 +27,7 @@ use app\models\User;
  * @property string $luggage_allowance
  * @property string $out_link
  * @property int $created_at
+ * @property int $updated_at
  * @property int $status
  *
  * @property BoardBasis $boardBasis
@@ -33,6 +38,7 @@ use app\models\User;
  */
 class Offer extends \yii\db\ActiveRecord
 {
+    public $date_range;
     /**
      * @inheritdoc
      */
@@ -47,13 +53,45 @@ class Offer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'title', 'price', 'departure_date', 'return_date'], 'required'],
-            [['user_id', 'board_basis_id', 'departure_date', 'return_date', 'created_at', 'status'], 'integer'],
+            ['date_range', 'validateDateRange','skipOnEmpty' => false],
+            [['title', 'price', 'departure_date', 'return_date'], 'required'],
+            [['board_basis_id', 'departure_date', 'return_date', 'created_at', 'status'], 'integer'],
             [['price', 'longitude', 'latitude'], 'number'],
             [['title', 'location', 'transfer', 'return_transfer', 'luggage_allowance', 'out_link'], 'string', 'max' => 255],
-            [['board_basis_id'], 'exist', 'skipOnError' => true, 'targetClass' => BoardBasis::className(), 'targetAttribute' => ['board_basis_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            //[['board_basis_id'], 'exist', 'skipOnError' => true, 'targetClass' => BoardBasis::className(), 'targetAttribute' => ['board_basis_id' => 'id']],
+            //[['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
+    }
+    
+    public function validateDateRange($attribute, $params)
+    {
+        
+        if(empty($this->return_date) or empty($this->departure_date)){
+            
+            $this->addError($attribute, Yii::t('app', 'Date Range cannot be blank.'));
+            
+        }
+        
+    }
+    
+    public function setDates()
+    {
+        $dates = explode(" - ", $this->date_range);
+        
+        $this->departure_date = strtotime($dates[0]);
+        $this->return_date = strtotime($dates[1]);
+        
+    }
+    
+    public function setDateRange()
+    {
+        $this->date_range = date('Y-m-d', $this->departure_date) . " - " . date('Y-m-d', $this->return_date);
+    }
+    
+    public function setReadableDateRange()
+    {
+        $this->departure_date = date('Y-m-d', $this->departure_date);
+        $this->return_date = date('Y-m-d', $this->return_date);
     }
 
     /**
@@ -80,6 +118,18 @@ class Offer extends \yii\db\ActiveRecord
             'status' => Yii::t('app', 'Status'),
         ];
     }
+    
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'user_id',
+                'updatedByAttribute' => false,
+            ],
+        ];
+    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -95,6 +145,14 @@ class Offer extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPreference()
+    {
+        return $this->hasOne(Preference::className(), ['id' => 'preference_id']);
     }
 
     /**
