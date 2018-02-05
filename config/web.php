@@ -5,6 +5,8 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'name' => 'Genie Travel',
+    'defaultRoute' => 'user/user-home',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [

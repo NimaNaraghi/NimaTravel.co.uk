@@ -101,15 +101,15 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
            
             if ($user = $model->signup()) {
-                
+                $this->confirm($user);
                 if (Yii::$app->getUser()->login($user)) {
-                    $email = $this->sendConfirmationEmail($user);
-                    if($email){
-                        Yii::$app->getSession()->setFlash('user_confirm_message',Yii::t('app','We sent you an email to active your account. Please, check your email!. Sometimes you may find it in SPAMS folder.'));
-                    }
-                    else{
-                        Yii::$app->getSession()->setFlash('user_confirm_message',Yii::t('app','Signup failed. Please contact admin.'));
-                    }
+//                    $email = $this->sendConfirmationEmail($user);
+//                    if($email){
+//                        Yii::$app->getSession()->setFlash('user_confirm_message',Yii::t('app','We sent you an email to active your account. Please, check your email!. Sometimes you may find it in SPAMS folder.'));
+//                    }
+//                    else{
+//                        Yii::$app->getSession()->setFlash('user_confirm_message',Yii::t('app','Signup failed. Please contact admin.'));
+//                    }
                     return $this->goHome();
                 }
             }
@@ -131,29 +131,16 @@ class SiteController extends Controller
                 ->send();
     }
 
-    public function actionConfirm($id, $key)
+    public function confirm($user)
     {
-        $user = User::find()->where([
-            'id'=>$id,
-            'auth_key'=>$key,
-            'status'=>User::STATUS_DELETED,
-        ])->one();
 
-        if(!empty($user)){
             $user->status = User::STATUS_ACTIVE;
             $auth = Yii::$app->authManager;
             
             $touristRole = $auth->getRole('tourist');
             $auth->assign($touristRole, $user->getId());
-            
-            
-            $user->save();
-            Yii::$app->getSession()->setFlash('user_confirm_message',Yii::t('app','Congratulations! Your account is active now!'));
-        }
-        else{
-            Yii::$app->getSession()->setFlash('user_confirm_message',Yii::t('app','Sorry :( Something went wrong. Your account is NOT active. Please, contact admin.'));
-        }
-        return $this->goHome();
+       
+        return $user->save();
     }
 
     public function actionRequestPasswordReset()

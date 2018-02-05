@@ -15,7 +15,7 @@ class SignupForm extends Model
     public $email;
     public $password;
     public $honeypot;
-    public $termsAgreement;
+    //public $termsAgreement;
 
     /**
      * @inheritdoc
@@ -23,21 +23,21 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-//            [['username'], 'filter', 'filter' => 'trim'],
-//            [['username'], 'required'],
-//            ['username', 'unique', 'targetClass' => 'app\models\User', 'message' => Yii::t('app','This username has already been taken.')],
-//            ['username', 'string', 'min' => 2, 'max' => 255],
-            ['username', 'default', 'value' => substr(md5(time()),0,12)],
-            ['termsAgreement', 'validateAgreement'],
-            ['termsAgreement', 'required'],
-            ['email', 'filter', 'filter' => 'trim'],
-            ['email', 'required'],
-            ['email', 'email'],
-            ['email', 'unique', 'targetClass' => 'app\models\User', 'message' => Yii::t('app','This email address has already been taken.')],
-
+            [['username'], 'filter', 'filter' => 'trim'],
+            [['username'], 'required'],
+            ['username', 'unique', 'targetClass' => 'app\models\User', 'message' => Yii::t('app','This username has already been taken.')],
+            ['username', 'string', 'min' => 2, 'max' => 255],
+            //['username', 'default', 'value' => substr(md5(time()),0,12)],
+//            ['termsAgreement', 'validateAgreement'],
+//            ['termsAgreement', 'required'],
+//            ['email', 'filter', 'filter' => 'trim'],
+//            ['email', 'required'],
+//            ['email', 'email'],
+//            ['email', 'unique', 'targetClass' => 'app\models\User', 'message' => Yii::t('app','This email address has already been taken.')],
+            ['email', 'default' , 'value' => substr(md5(time()),0,12) . "@genietravel.uws.ac.uk"],
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
-            ['username', 'string', 'min' => 6],
+            //['username', 'string', 'min' => 6],
             
             
             ['honeypot', 'honeypotValidator']
@@ -77,7 +77,7 @@ class SignupForm extends Model
             $user->status = User::STATUS_DELETED;
 
             if ($user->save()) {
-                $this->createProfile($user->id);
+                //$this->createProfile($user->id);
                 return $user;
             }
         }else{
