@@ -141,9 +141,10 @@ class Preference extends \yii\db\ActiveRecord
     public function setDates()
     {
         $dates = explode(" - ", $this->date_range);
-        
-        $this->departure_date = strtotime($dates[0]);
-        $this->return_date = strtotime($dates[1]);
+        if(isset($dates[0]) and isset($dates[1])){
+            $this->departure_date = strtotime($dates[0]);
+            $this->return_date = strtotime($dates[1]);
+        }
         //die(var_dump($this->departure_date)."***".var_dump($this->return_date));
     }
 
@@ -352,4 +353,5 @@ class Preference extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Video::className(), ['id' => 'video_id'])->viaTable('preference_video', ['preference_id' => 'id']);
     }
+    
 }

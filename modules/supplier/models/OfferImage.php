@@ -21,8 +21,8 @@ use yii\helpers\Url;
 class OfferImage extends \yii\db\ActiveRecord
 {
     public $imageFile;
-    const WIDTH = 140;
-    const HEIGHT = 140;
+    const WIDTH = 730;
+    const HEIGHT = 332;
     const PREFIX = "offer_image_";
     
     /**

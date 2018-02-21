@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
@@ -51,7 +52,41 @@ $this->params['breadcrumbs'][] = $this->title;
             //'created_at',
             //'status',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view}{update}{delete}',
+                'buttons' => [
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                'title' => Yii::t('app', 'delete'),
+                        ],['data-method' => 'post']);
+                    },
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                'title' => Yii::t('app', 'update'),
+                        ]);
+                    },
+                    'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                'title' => Yii::t('app', 'view'),
+                        ]);
+                    }
+                ],
+                'urlCreator' => function ($action, $model, $key, $index) {
+                    if ($action === 'delete') {
+                        $url = Url::to(['offer/delete','id' => $model->id]);
+                        return $url;
+                    }
+                    if ($action === 'view') {
+                        $url = Url::to(['offer/view','id' => $model->id]);
+                        return $url;
+                    }
+                    if ($action === 'update') {
+                        $url = Url::to(['offer/update','id' => $model->id]);
+                        return $url;
+                    }
+                }
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>

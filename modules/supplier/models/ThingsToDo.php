@@ -100,4 +100,21 @@ class ThingsToDo extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Offer::className(), ['id' => 'offer_id']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getActivityThingsToDos()
+    {
+        return $this->hasMany(ActivityThingsToDo::className(), ['things_to_do_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getActivities()
+    {
+        return $this->hasMany(Activity::className(), ['id' => 'activity_id'])->viaTable('activity_things_to_do', ['things_to_do_id' => 'id']);
+    }
+
 }

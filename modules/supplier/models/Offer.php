@@ -29,6 +29,7 @@ use yii\behaviors\BlameableBehavior;
  * @property int $created_at
  * @property int $updated_at
  * @property int $status
+ * @property string $description
  *
  * @property BoardBasis $boardBasis
  * @property User $user
@@ -58,6 +59,7 @@ class Offer extends \yii\db\ActiveRecord
             [['board_basis_id', 'departure_date', 'return_date', 'created_at', 'status'], 'integer'],
             [['price', 'longitude', 'latitude'], 'number'],
             [['title', 'location', 'transfer', 'return_transfer', 'luggage_allowance', 'out_link'], 'string', 'max' => 255],
+            ['description','string'],
             //[['board_basis_id'], 'exist', 'skipOnError' => true, 'targetClass' => BoardBasis::className(), 'targetAttribute' => ['board_basis_id' => 'id']],
             //[['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -116,6 +118,7 @@ class Offer extends \yii\db\ActiveRecord
             'out_link' => Yii::t('app', 'Out Link'),
             'created_at' => Yii::t('app', 'Created At'),
             'status' => Yii::t('app', 'Status'),
+            'description' => Yii::t('app', 'Description'),
         ];
     }
     
@@ -177,5 +180,16 @@ class Offer extends \yii\db\ActiveRecord
     public function getThingsToDos()
     {
         return $this->hasMany(ThingsToDo::className(), ['offer_id' => 'id']);
+    }
+    
+    public function getMainImageURL()
+    {
+        $images = $this->offerImages;
+        if(isset($images[0])){
+            $mainImage = $images[0];
+            return $mainImage->getImageURL();
+        }else{
+            return null;
+        }
     }
 }

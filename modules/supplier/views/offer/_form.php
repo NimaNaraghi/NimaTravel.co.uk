@@ -50,6 +50,8 @@ use kartik\daterange\DateRangePicker;
     
 
     <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model,'description')->textarea() ?>
 
     <?= $form->field($model, 'longitude')->textInput() ?>
 

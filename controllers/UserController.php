@@ -10,7 +10,7 @@ use app\models\User;
 use app\models\Profile;
 use app\models\Buy;
 use app\models\Preference;
-
+use app\modules\supplier\models\Offer;
 
 class UserController extends \yii\web\Controller
 {
@@ -37,18 +37,126 @@ class UserController extends \yii\web\Controller
 //            print_r(var_dump($preference->Climate));
 //            die;
             $preference->setDates();
-            if(!$preference->save()){
-                echo "save error";
-                die(print_r($preference->errors));
+            if($preference->save()){
+                $this->redirect(['user/offers','id' => $preference->id]);
             }
             
         }else{
-            //die(print_r($preference->errors));
+            
         }
         
         return $this->render('userhome', [
             'preferenceForm' => $preference,
         ]);
+    }
+    
+    public function actionOffers($id = null)
+    {
+        if($id == null){
+            $preference = Preference::find()->where(['user_id' => Yii::$app->user->identity->id])->orderBy('id')->one();
+        }else{
+            $preference = $this->findPreference($id);
+        }
+        
+        $preferenceDataProvider = new ActiveDataProvider([
+            'query' => Preference::find()->where(['user_id' => Yii::$app->user->identity->id])
+        ]);
+        
+        
+        
+        $offerDataProvider = new ActiveDataProvider([
+            'query' => $this->buildOfferQuery($id,$preference),
+        ]);
+        
+        return $this->render("user-offers",[
+            'id' => $preference->id,
+            'offerDataProvider' => $offerDataProvider,
+            'preferenceDataProvider' => $preferenceDataProvider
+            ]);
+    }
+    
+    public function actionOffer($id, $preferenceid)
+    {
+        $offer = $this->findOffer($id);
+        $preference = $this->findPreference($preferenceid);
+        
+        return $this->render("offer",[
+            'offer' => $offer,
+            'preference' => $preference,
+        ]);
+    }
+    
+    
+    public function buildOfferQuery($id,$preference)
+    {
+        $query = Offer::find()
+                ->joinWith('preference')
+                ->leftJoin('preference_climate','preference_climate.preference_id = preference.id')
+                ->leftJoin('climate','preference_climate.climate_id = climate.id')
+                ->leftJoin('preference_activity','preference_activity.preference_id = preference.id')
+                ->leftJoin('activity','preference_activity.activity_id = activity.id')
+                ->leftJoin('preference_style','preference_style.preference_id = preference.id')
+                ->leftJoin('style','preference_style.style_id = style.id');
+                
+        //print_r($preference->climates);
+        $where = "";
+        
+        if(sizeof($preference->climates) > 0){
+            $where = "(";
+            $i = 0;
+            foreach($preference->climates as $climate){
+                //echo $climate->title;
+                //$query->OrWhere(['preference_climate.climate_id' => $climate->id]);
+                $where .= "preference_climate.climate_id=".$climate->id;
+                $i++;
+                if($i < sizeof($preference->climates)){
+                    $where .= " OR ";
+                }else{
+                    $where .= ")";
+                }
+
+
+            }
+            
+        }
+        if(sizeof($preference->activities) > 0){
+            $where .= " AND (";
+            $i = 0;
+            foreach($preference->activities as $activity){
+                //echo $climate->title;
+                //$query->OrWhere(['preference_climate.climate_id' => $climate->id]);
+                $where .= "preference_activity.activity_id=".$activity->id;
+                $i++;
+                if($i < sizeof($preference->activities)){
+                    $where .= " OR ";
+                }else{
+                    $where .= ")";
+                }
+
+            }
+
+            
+        }
+        if(sizeof($preference->styles) > 0){
+            $where .= " AND (";
+            $i = 0;
+            foreach($preference->styles as $style){
+                //echo $climate->title;
+                //$query->OrWhere(['preference_climate.climate_id' => $climate->id]);
+                $where .= "preference_style.style_id=".$style->id;
+                $i++;
+                if($i < sizeof($preference->styles)){
+                    $where .= " OR ";
+                }else{
+                    $where .= ")";
+                }
+            }
+        }
+        if(!empty($where)){
+            $where .= ";";
+            $query->where($where);
+        }
+        return $query;
     }
 
     public function actionAccount()
@@ -117,6 +225,22 @@ class UserController extends \yii\web\Controller
         ]);
     }
 
+    protected function findPreference($id)
+    {
+        if (($model = Preference::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
     
+    protected function findOffer($id)
+    {
+        if (($model = Offer::findOne($id)) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
 
 }
