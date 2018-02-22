@@ -8,6 +8,7 @@ use app\modules\supplier\models\ThingsToDoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ThingstodoController implements the CRUD actions for ThingsToDo model.
@@ -86,8 +87,13 @@ class ThingstodoController extends Controller
     {
         $model = $this->findModel($id);
         $model->setReadableDateRange();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) ){
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            
+            $model->setDates();
+            if($model->save()){
+                return $this->redirect(['offer/view', 'id' => $model->offer->id]);
+            }
         }
 
         return $this->render('update', [

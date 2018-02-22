@@ -11,7 +11,7 @@ use kartik\daterange\DateRangePicker;
 
 <div class="things-to-do-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
@@ -20,7 +20,7 @@ use kartik\daterange\DateRangePicker;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'imageFile')->fileInput() ?>
 
    <?php  
     if($model->isNewRecord){

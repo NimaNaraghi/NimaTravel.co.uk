@@ -25,6 +25,7 @@ Price: <?= $offer->price ?> <br>
 Departure: <?= Yii::$app->formatter->asDate($offer->departure_date) ?> <br>
 Return: <?= Yii::$app->formatter->asDate($offer->return_date) ?> <br>
 Description: <?= $offer->description ?> <br>
+<h2> Included These Activities </h2>
 <?php foreach($offer->thingsToDos as $thing){
     echo $this->render('_things',['thing' => $thing]);
 }

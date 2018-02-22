@@ -19,10 +19,7 @@ use yii\widgets\ActiveForm;
             ])->textInput(['maxlength' => true]) ?>
         
         </div>
-        
-    
-      
-    
+  
 
     <?php ActiveForm::end(); ?>
 

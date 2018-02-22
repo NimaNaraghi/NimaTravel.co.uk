@@ -26,11 +26,19 @@ $this->title = Yii::t('app', 'Things To Dos');
         'columns' => [
 //            ['class' => 'yii\grid\SerialColumn'],
 
-//            'id',
-//            'offer_id',
+
             'title',
-//            'highlights:ntext',
-//            'description:ntext',
+            [
+                'class' => 'yii\grid\DataColumn',
+                'format' => 'html',
+                'attribute' => 'ImageFile',
+                'content' => function($data){ 
+                    $image = $data->getImageURL();
+                    
+                    return Html::img($image,['class'=>'img img-responsive']); 
+                    
+                },
+            ],
             'price:currency',
             'begin_date:date',
             'end_date:date',

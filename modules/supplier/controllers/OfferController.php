@@ -85,6 +85,7 @@ class OfferController extends Controller
         $thingsToDo = new ThingsToDo();
         
         if ($thingsToDo->load(Yii::$app->request->post()) ){
+            $thingsToDo->imageFile = UploadedFile::getInstance($thingsToDo, 'imageFile');
             $thingsToDo->offer_id = $id;
             $thingsToDo->setDates();
             $thingsToDo->save();

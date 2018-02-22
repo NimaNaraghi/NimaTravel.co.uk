@@ -16,9 +16,6 @@ Url::remember();
     
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         //'filterModel' => $searchModel,
@@ -33,7 +30,7 @@ Url::remember();
                 'content' => function($data){ 
                     $image = $data->getImageURL();
                     
-                    return Html::img($image).Html::tag("h5",$data->title); 
+                    return Html::img($image,['class'=>'img img-responsive']).Html::tag("h5",$data->title); 
                     
                 },
             ],

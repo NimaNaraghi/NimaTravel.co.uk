@@ -23,5 +23,6 @@ class Module extends \yii\base\Module
         parent::init();
 
         Yii::setAlias('@offerImages', '@app/web/images/offers/');
+        Yii::setAlias('@things', '@app/web/images/things/');
     }
 }
