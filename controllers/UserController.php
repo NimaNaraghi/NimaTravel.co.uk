@@ -52,26 +52,32 @@ class UserController extends \yii\web\Controller
     
     public function actionOffers($id = null)
     {
+        //select the last preference set as default
         if($id == null){
             $preference = Preference::find()->where(['user_id' => Yii::$app->user->identity->id])->orderBy('id')->one();
         }else{
             $preference = $this->findPreference($id);
         }
         
-        $preferenceDataProvider = new ActiveDataProvider([
-            'query' => Preference::find()->where(['user_id' => Yii::$app->user->identity->id])
-        ]);
         
         
+        //die(var_dump($preference));
+        if($preference != null){
+            $preferenceDataProvider = new ActiveDataProvider([
+                'query' => Preference::find()->where(['user_id' => Yii::$app->user->identity->id])
+            ]);
+            
+            $query = $this->buildOfferQuery($id,$preference);
+            $offerDataProvider = new ActiveDataProvider([
+                'query' => $query,
+            ]);
+        }
         
-        $offerDataProvider = new ActiveDataProvider([
-            'query' => $this->buildOfferQuery($id,$preference),
-        ]);
         
         return $this->render("user-offers",[
-            'id' => $preference->id,
-            'offerDataProvider' => $offerDataProvider,
-            'preferenceDataProvider' => $preferenceDataProvider
+            'id' => $preference != null ? $preference->id : null,
+            'offerDataProvider' => isset($offerDataProvider) ? $offerDataProvider : null,
+            'preferenceDataProvider' => isset($preferenceDataProvider) ? $preferenceDataProvider : null,
             ]);
     }
     
