@@ -68,6 +68,7 @@ class UserController extends \yii\web\Controller
             ]);
             
 //            $query = $this->buildOfferQuery($id,$preference);
+            
             $query = Offer::find()->where(['preference_id' => $preference->id]);
             $offerDataProvider = new ActiveDataProvider([
                 'query' => $query,
