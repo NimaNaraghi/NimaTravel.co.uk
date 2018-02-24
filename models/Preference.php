@@ -118,6 +118,7 @@ class Preference extends \yii\db\ActiveRecord
     
     private function insertJunctionRelations($selectList,$table)
     {
+        //die(var_dump($selectList));
         $tableName = $this->getJunctionTableName($table);
         if(is_array($selectList)){
             foreach($selectList as $key => $value)

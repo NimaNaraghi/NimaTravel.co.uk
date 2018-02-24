@@ -14,6 +14,18 @@ use yii\helpers\Url;
             echo $climate->title . " ";
         }
     ?> <br>
+    Activity : <?php 
+                    foreach($model->activities as $activity)
+                    {
+                        echo $activity->title . " ";
+                    }
+                    ?> <br>
+    Style : <?php 
+        foreach($model->styles as $style)
+        {
+            echo $style->title . " ";
+        }
+        ?> <br>
     Accommodation Features : <?php 
         foreach($model->accommodationFeatures as $feature)
         {

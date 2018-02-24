@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-//            'id',
+            'id',
             [
                 'attribute' => 'user_id',
                 'content' => function($data){
@@ -33,15 +33,49 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'created_at:datetime',
 //            'updated_at',
-            'departure_date:date',
-            'return_date:date',
-            'max_budget:currency',
-            'adults',
-            'children',
-            'departure_location',
+//            'departure_date:date',
+//            'return_date:date',
+//            'max_budget:currency',
+//            'adults',
+//            'children',
+//            'departure_location',
             //'favourite_destinations:ntext',
             //'comment:ntext',
             //'status',
+            [
+                'label' => 'Climate',
+                'content' => function($model){
+                    $result = "";
+                    foreach($model->climates as $climate)
+                    {
+                        $result .= $climate->title . ", ";
+                    }
+                    return $result;
+                }
+            ],
+            
+            [
+                'label' => 'Style',
+                'value' => function($model){
+                    $result = "";
+                    foreach($model->styles as $style)
+                    {
+                        $result .= $style->title . ", ";
+                    }
+                    return $result;
+                }
+            ],
+            [
+                'label' => 'Activity',
+                'content' => function($model){
+                    $result = "";
+                    foreach($model->activities as $activity)
+                    {
+                        $result .= $activity->title . ", ";
+                    }
+                    return $result;
+                }
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

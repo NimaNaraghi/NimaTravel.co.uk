@@ -29,10 +29,16 @@ use yii\helpers\Url;
                         echo $activity->title . " ";
                     }
                     ?> <br>
-                Accessibility : <?php 
-                    foreach($model->preference->climates as $climate)
+                Style : <?php 
+                    foreach($model->preference->styles as $style)
                     {
-                        echo $climate->title . " ";
+                        echo $style->title . " ";
+                    }
+                    ?> <br>
+                Accessibility : <?php 
+                    foreach($model->preference->accessibilities as $accessibility)
+                    {
+                        echo $climate->accessibility . " ";
                     }
                     ?> <br>
           <?= Html::a("More Info",Url::to(['user/offer','id' => $model->id,'preferenceid' => $preferenceId]),

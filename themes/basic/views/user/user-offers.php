@@ -7,7 +7,7 @@ use yii\widgets\ListView;
     
     <?php
         if($preferenceDataProvider != null){
-            ListView::widget([
+            echo ListView::widget([
                 'dataProvider' => $preferenceDataProvider,
                 'viewParams' => ['id' => $id],
                 'itemView' => '_preference',
@@ -22,7 +22,7 @@ use yii\widgets\ListView;
     <h2>Offers</h2>
     <?php
         if($offerDataProvider != null){
-            ListView::widget([
+            echo ListView::widget([
                 'dataProvider' => $offerDataProvider,
                 'viewParams' => ['preferenceId' => $id],
                 'itemView' => '_offer',

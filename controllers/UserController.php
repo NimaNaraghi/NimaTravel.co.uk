@@ -33,7 +33,7 @@ class UserController extends \yii\web\Controller
         $preference = new Preference;
         
         if($preference->load(Yii::$app->request->post())){
-            $post = Yii::$app->request->post();
+//            $post = Yii::$app->request->post();
 //            print_r(var_dump($preference->Climate));
 //            die;
             $preference->setDates();
@@ -67,7 +67,8 @@ class UserController extends \yii\web\Controller
                 'query' => Preference::find()->where(['user_id' => Yii::$app->user->identity->id])
             ]);
             
-            $query = $this->buildOfferQuery($id,$preference);
+//            $query = $this->buildOfferQuery($id,$preference);
+            $query = Offer::find()->where(['preference_id' => $preference->id]);
             $offerDataProvider = new ActiveDataProvider([
                 'query' => $query,
             ]);
@@ -126,7 +127,11 @@ class UserController extends \yii\web\Controller
             
         }
         if(sizeof($preference->activities) > 0){
-            $where .= " AND (";
+            if($where != ""){
+                $where .= " AND (";
+            }else{
+                $where = "(";
+            }
             $i = 0;
             foreach($preference->activities as $activity){
                 //echo $climate->title;
@@ -144,7 +149,11 @@ class UserController extends \yii\web\Controller
             
         }
         if(sizeof($preference->styles) > 0){
-            $where .= " AND (";
+             if($where != ""){
+                $where .= " AND (";
+            }else{
+                $where = "(";
+            }
             $i = 0;
             foreach($preference->styles as $style){
                 //echo $climate->title;
