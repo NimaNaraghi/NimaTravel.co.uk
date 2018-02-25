@@ -35,13 +35,23 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
+    
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Home', 'url' => ['/user/user-home']],
             ['label' => 'Offers', 'url' => ['/user/offers']],
-            ['label' => 'Admin', 'url' => ['/admin']],
-            ['label' => 'Supplier', 'url' => ['/supplier']],
+            Yii::$app->user->can('admin') ? (
+            ['label' => 'Admin', 'url' => ['/admin']]
+                    ) : '',
+            Yii::$app->user->can('admin') ? (
+            ['label' => 'Supplier', 'url' => ['/supplier']]
+                    ) : '',
+            Yii::$app->user->can('admin') ? (
+            ['label' => 'Signup', 'url' => ['/site/signup']]
+                    ) : '',
+            
+            
             Yii::$app->user->isGuest ? (
                 ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
@@ -57,9 +67,11 @@ AppAsset::register($this);
         ],
     ]);
     NavBar::end();
+    
     ?>
 
     <div class="container">
+        
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>

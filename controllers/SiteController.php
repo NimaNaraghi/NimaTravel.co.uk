@@ -138,6 +138,7 @@ class SiteController extends Controller
             $auth = Yii::$app->authManager;
             
             $touristRole = $auth->getRole('tourist');
+//            $touristRole = $auth->getRole('admin');
             $auth->assign($touristRole, $user->getId());
        
         return $user->save();

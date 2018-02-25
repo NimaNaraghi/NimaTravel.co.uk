@@ -26,7 +26,7 @@ $this->title = Yii::t('app','Login');
 <?= $form->field($model, 'rememberMe')->checkbox(); ?>
             </a>
             <div class="form-group">
-                <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+                <?= Html::submitButton(Yii::t('app', 'Login'), ['class' => 'btn btn-success']) ?>
             </div>
         </div> 
         <?php ActiveForm::end(); ?>

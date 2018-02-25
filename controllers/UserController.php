@@ -22,7 +22,7 @@ class UserController extends \yii\web\Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => ['tourist'],
+                        'roles' => ['tourist','admin'],
                     ],
                 ],
             ],
