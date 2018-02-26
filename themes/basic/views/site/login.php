@@ -33,4 +33,3 @@ $this->title = Yii::t('app','Login');
     </div>
 
 </div>
-<?= $this->render('_messages'); ?>

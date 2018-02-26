@@ -5,7 +5,7 @@ use yii\helpers\Url;
 
 <div class="panel panel-default">
   <div class="panel-body">
-    Budget :  <?= $model->max_budget ?>  <br>
+    Budget :  <?= Yii::$app->formatter->asCurrency($model->max_budget) ?>  <br>
     Departure Date :  <?= Yii::$app->formatter->asDate($model->departure_date) ?>  <br>
     Return Date :  <?= Yii::$app->formatter->asDate($model->return_date) ?> <br>
     Climate : <?php 

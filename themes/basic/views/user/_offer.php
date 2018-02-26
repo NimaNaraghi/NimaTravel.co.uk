@@ -7,13 +7,12 @@ use yii\helpers\Url;
   <div class="panel-body">
       <div class="media">
           <div class="media-left">
-              <a href="">
-                  
+              <a href="<?= Url::to(['user/offer','id' => $model->id,'preferenceid' => $preferenceId]) ?>">
                   <img class="media-object" src="<?= $model->getMainImageURL(); ?>" alt="Offer-Image" width="140px" height="140px">
               </a>
           </div>
           <div class="media-body">
-              <h4 class="media-heading">Price :  <?= $model->price ?> </h4>
+              <h4 class="media-heading">Price :  <?= Yii::$app->formatter->asCurrency($model->price) ?> </h4>
               Date :  <?= Yii::$app->formatter->asDate($model->preference->departure_date) ?> <br>
               To :  <?= Yii::$app->formatter->asDate($model->preference->return_date) ?> <br>
               Location : <?= $model->location ?> <br>
@@ -41,7 +40,7 @@ use yii\helpers\Url;
                         echo $climate->accessibility . " ";
                     }
                     ?> <br>
-          <?= Html::a("More Info",Url::to(['user/offer','id' => $model->id,'preferenceid' => $preferenceId]),
+          <?= Html::a("Details",Url::to(['user/offer','id' => $model->id,'preferenceid' => $preferenceId]),
                   ['class'=>"btn btn-primary pull-right",'role'=>'button']) ?>
           </div>
           

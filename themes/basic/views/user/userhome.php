@@ -26,7 +26,7 @@ $this->title = Yii::t('app', 'Home');
         ]);
         
         echo $form->field($preferenceForm, 'max_budget', [
-            'template' => '{label}<div class="input-group"><span class="input-group-addon">$</span>{input}</div>{hint}{error}'])
+            'template' => '{label}<div class="input-group"><span class="input-group-addon">£</span>{input}</div>{hint}{error}'])
                 ->textInput(['class' => null,'autofocus' => true]);
         
         echo $form->field($preferenceForm, 'adults');

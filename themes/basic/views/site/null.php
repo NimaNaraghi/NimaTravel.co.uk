@@ -21,4 +21,3 @@ use yii\bootstrap\Modal;
         </div>
     </div>
 </div>
-<?= $this->render('_messages'); ?>

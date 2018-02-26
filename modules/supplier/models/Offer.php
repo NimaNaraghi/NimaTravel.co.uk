@@ -39,6 +39,19 @@ use yii\behaviors\BlameableBehavior;
  */
 class Offer extends \yii\db\ActiveRecord
 {
+    const STATUS_RESERVE = 1;
+    const STATUS_CALL = 2;
+    
+    public function updateStatus($status)
+    {
+        if($status == self::STATUS_RESERVE){
+            $this->status = self::STATUS_RESERVE;
+        }elseif ($status == self::STATUS_CALL) {
+            $this->status = self::STATUS_CALL;
+        }
+        return $this->update();
+    }
+    
     public $date_range;
     /**
      * @inheritdoc

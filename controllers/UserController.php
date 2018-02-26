@@ -28,6 +28,29 @@ class UserController extends \yii\web\Controller
             ],
         ];
     }
+    
+    public function actionReaction($id, $action)
+    {
+        $offer = $this->findOffer($id);
+        if($offer->preference->user_id == Yii::$app->user->identity->id){
+            if($offer->updateStatus($action) != false){
+                if($action == Offer::STATUS_RESERVE){
+                    Yii::$app->getSession()->setFlash('user',
+                        Yii::t('app','Thank you for letting us know that you would like to reserve the offer if the application was running as commercial website.'));
+                }elseif($action == Offer::STATUS_CALL){
+                    Yii::$app->getSession()->setFlash('user',
+                        Yii::t('app','Thank you for letting us know that you would like to call the supplier if the application was running as commercial website.'));
+                }
+            }else{
+                Yii::$app->getSession()->setFlash('user','It seems that you have already done this action. If it is not the case, contact the project\'s admins please :)');
+            }
+            return $this->goBack();
+        }else{
+           throw new \yii\web\ForbiddenHttpException;
+        }
+ 
+    }
+    
     public function actionUserHome()
     {
         $preference = new Preference;
@@ -58,8 +81,7 @@ class UserController extends \yii\web\Controller
         }else{
             $preference = $this->findPreference($id);
         }
-        
-        
+
         
         //die(var_dump($preference));
         if($preference != null){

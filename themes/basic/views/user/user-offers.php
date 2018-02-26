@@ -27,6 +27,11 @@ use yii\widgets\ListView;
                 'viewParams' => ['preferenceId' => $id],
                 'itemView' => '_offer',
                 'summary' => false,
+                'emptyText' => 'The tour agencies and other suppliers are reviewing your preferences...<br>
+                Although it usually takes no longer than 15 min, you will recieve an email when they sent you their offers.<br>
+                Meanwhile, you can live your life instead of getting headache by searching through infinit number of options out there.<br>
+                KEEP CALM AND LEAVE IT TO THE HANDS OF EXPERTS.
+                '
             ]);
         }else{
             echo "No offers yer :(";

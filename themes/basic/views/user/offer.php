@@ -1,6 +1,9 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\Carousel;
+use yii\helpers\Url;
+
+Url::remember();
 $items = [];
 foreach($offer->offerImages as $image)
 {
@@ -9,9 +12,7 @@ foreach($offer->offerImages as $image)
 
 //print_r($items);
 ?>
-<div class="col-md-4">
-    <?= $this->render('_preference',['model' => $preference,'id' => false]) ?>
-</div>
+
 <div class="col-md-8">
 
 <?php
@@ -21,7 +22,14 @@ echo Carousel::widget([
 
 ?>
 Location: <?= $offer->location ?> <br>
-Price: <?= $offer->price ?> <br>
+Price: <?= Yii::$app->formatter->asCurrency($offer->price) ?> 
+
+<?= Html::a("Call",['user/reaction','id' => $offer->id, 'action' => app\modules\supplier\models\Offer::STATUS_CALL],
+        ['class' => 'btn btn-warning pull-right', 'role' => 'button']) ?>
+
+<?= Html::a("Reserve",['user/reaction', 'id' => $offer->id,'action' => app\modules\supplier\models\Offer::STATUS_RESERVE]
+        ,['class' => 'btn btn-success pull-right', 'role' => 'button']) ?> 
+<br>
 Departure: <?= Yii::$app->formatter->asDate($offer->departure_date) ?> <br>
 Return: <?= Yii::$app->formatter->asDate($offer->return_date) ?> <br>
 Description: <?= $offer->description ?> <br>
@@ -30,4 +38,7 @@ Description: <?= $offer->description ?> <br>
     echo $this->render('_things',['thing' => $thing]);
 }
 ?>
+</div>
+<div class="col-md-4">
+    <?= $this->render('_preference',['model' => $preference,'id' => false]) ?>
 </div>

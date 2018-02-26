@@ -214,9 +214,20 @@ class User extends ActiveRecord implements IdentityInterface
         return isset($this->profile);
     }
 
-
-    public function getPayments()
+    public function getPreferences()
     {
-        return $this->hasMany(ManualPayment::className(), ['user_id' => 'id']);
+        return $this->hasMany(Preference::className(), ['user_id' => 'id']);
+    }
+    
+    public function canSurvey()
+    {
+        foreach($this->preferences as $set)
+        {
+            
+            if(sizeof($set->offers) > 0){
+                return true;
+            }
+        }
+        return false;
     }
 }

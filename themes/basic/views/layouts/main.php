@@ -35,12 +35,18 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    
+    if(!Yii::$app->user->isGuest && Yii::$app->user->identity->canSurvey()){
+        echo Html::a('Survey', 'https://s.surveyplanet.com/ry0tK6g_G',['class'=>'btn btn-danger btn-lg pull-right']);
+    }else{
+        echo Html::a('Survey', 'https://s.surveyplanet.com/ry0tK6g_G',['class'=>'btn btn-danger btn-lg pull-right disabled']);
+    }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
+            //['label' => '', 'url' => 'https://s.surveyplanet.com/ry0tK6g_G'],
             ['label' => 'Home', 'url' => ['/user/user-home']],
             ['label' => 'Offers', 'url' => ['/user/offers']],
+            ['label' => 'How It Works', 'url' => ['/site/how']],
             Yii::$app->user->can('admin') ? (
             ['label' => 'Admin', 'url' => ['/admin']]
                     ) : '',
@@ -77,14 +83,15 @@ AppAsset::register($this);
         ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
+        <?= $this->render('_messages'); ?>
     </div>
 </div>
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
+        <p class="pull-left"><?= Html::a('Contact Researchers',['/site/contact']) ?> </p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        
     </div>
 </footer>
 

@@ -66,6 +66,10 @@ $config = [
                 ],
             ],
         ],
+        'formatter' => [
+            
+            'currencyCode' => 'GBP',
+       ],
     ],
     'modules' => [
         'admin' => [

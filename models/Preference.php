@@ -13,6 +13,7 @@ use app\modules\admin\models\Video;
 use app\modules\admin\models\BoardBasis;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use app\modules\supplier\models\Offer;
 /**
  * This is the model class for table "preference".
  *
@@ -353,6 +354,11 @@ class Preference extends \yii\db\ActiveRecord
     public function getVideos()
     {
         return $this->hasMany(Video::className(), ['id' => 'video_id'])->viaTable('preference_video', ['preference_id' => 'id']);
+    }
+    
+    public function getOffers()
+    {
+        return $this->hasMany(Offer::className(), ['preference_id' => 'id']);
     }
     
 }
