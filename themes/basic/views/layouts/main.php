@@ -44,7 +44,7 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             //['label' => '', 'url' => 'https://s.surveyplanet.com/ry0tK6g_G'],
-            ['label' => 'Home', 'url' => ['/user/user-home']],
+            ['label' => 'Preferences', 'url' => ['/user/user-home']],
             ['label' => 'Offers', 'url' => ['/user/offers']],
             ['label' => 'How It Works', 'url' => ['/site/how']],
             Yii::$app->user->can('admin') ? (

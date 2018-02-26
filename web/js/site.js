@@ -1,17 +1,18 @@
 $(document).ready(function(){
-  $('.slider-for').slick({
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    fade: true,
-    asNavFor: '.slider-nav'
-  });
-  $('.slider-nav').slick({
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    asNavFor: '.slider-for',
-    dots: true,
-    centerMode: true,
-    focusOnSelect: true
-  });
+    $.post("/web/user/check-offers",null,function(result){
+        var msg = result;
+        if(msg.ready == false){
+            var interval =  setInterval(function(){ 
+                $.post("/web/user/check-offers",null,function(result){
+                  var msg = result;
+                  if(msg.ready == true){
+                      location.reload();
+                      clearInterval(interval);
+                  }
+                },'json');
+
+            },5000);
+        }
+    },'json');
+ 
 });

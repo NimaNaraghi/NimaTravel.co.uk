@@ -11,6 +11,8 @@ use app\models\Profile;
 use app\models\Buy;
 use app\models\Preference;
 use app\modules\supplier\models\Offer;
+use yii\filters\VerbFilter;
+use yii\web\Response;
 
 class UserController extends \yii\web\Controller
 {
@@ -26,7 +28,26 @@ class UserController extends \yii\web\Controller
                     ],
                 ],
             ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'CheckOffers' => ['post'],
+                ],
+            ],
         ];
+    }
+    
+    public function actionCheckOffers()
+    {
+        if(Yii::$app->request->isAjax){
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            $message['ready'] = false;
+            if(!Yii::$app->user->isGuest && Yii::$app->user->identity->canSurvey()){
+                $message['ready'] = true;
+                
+            }
+            return $message;
+        }
     }
     
     public function actionReaction($id, $action)

@@ -1,6 +1,8 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
+
+$this->title = "How it works";
 ?>
 <h1 class='ben-header'>My name is Nima Naraghi. I research to know that whether you are interested to be more like Jane or Ben.</h1>
 <div class="col-md-6">

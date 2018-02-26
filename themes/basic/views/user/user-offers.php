@@ -1,5 +1,8 @@
 <?php
 use yii\widgets\ListView;
+use app\assets\OfferAsset;
+OfferAsset::register($this);
+$this->title = "Offers"
 ?>
 
 <div class="col-md-4">
@@ -27,14 +30,14 @@ use yii\widgets\ListView;
                 'viewParams' => ['preferenceId' => $id],
                 'itemView' => '_offer',
                 'summary' => false,
-                'emptyText' => 'The tour agencies and other suppliers are reviewing your preferences...<br>
-                Although it usually takes no longer than 15 min, you will recieve an email when they sent you their offers.<br>
-                Meanwhile, you can live your life instead of getting headache by searching through infinit number of options out there.<br>
-                KEEP CALM AND LEAVE IT TO THE HANDS OF EXPERTS.
+                'emptyText' => '<p class="lead"> The tour agencies, experts and other suppliers are reviewing your preferences...<br>
+                Although it usually takes no longer than 30 min, you will recieve an email when an offer is ready.<br></p>
+                <p><div class="loader col-md-offset-4"></div></p>
+                
                 '
             ]);
         }else{
-            echo "No offers yer :(";
+            echo "The travel agencies likes to know your preferences first. :(";
         }
     ?>
 </div>

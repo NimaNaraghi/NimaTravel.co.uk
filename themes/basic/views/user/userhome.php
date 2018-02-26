@@ -11,7 +11,9 @@ use kartik\widgets\ActiveForm;
 use kartik\checkbox\CheckboxX;
 use \yii\helpers\StringHelper;
 
-$this->title = Yii::t('app', 'Home');
+
+
+$this->title = Yii::t('app', 'Preferences');
 ?>
 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 <div class="col-md-3">
