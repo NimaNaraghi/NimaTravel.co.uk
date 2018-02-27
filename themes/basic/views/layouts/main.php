@@ -36,9 +36,9 @@ AppAsset::register($this);
         ],
     ]);
     if(!Yii::$app->user->isGuest && Yii::$app->user->identity->canSurvey()){
-        echo Html::a('Survey', 'https://s.surveyplanet.com/ry0tK6g_G',['class'=>'btn btn-danger btn-lg pull-right']);
+        echo Html::a('Survey', 'https://s.surveyplanet.com/ry0tK6g_G',['class'=>'btn btn-danger btn-lg pull-right btn-survey']);
     }else{
-        echo Html::a('Survey', 'https://s.surveyplanet.com/ry0tK6g_G',['class'=>'btn btn-danger btn-lg pull-right disabled']);
+        echo Html::a('Survey', 'https://s.surveyplanet.com/ry0tK6g_G',['class'=>'btn btn-danger btn-lg pull-right btn-survey disabled']);
     }
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
