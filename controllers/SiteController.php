@@ -62,6 +62,11 @@ class SiteController extends Controller
     {
         return $this->render('howitworks');
     }
+    
+    public function actionParticipationInformationSheet()
+    {
+        return $this->render('pis');
+    }
 
     /**
      * Displays homepage.

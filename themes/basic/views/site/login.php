@@ -12,6 +12,7 @@ $this->title = Yii::t('app','Login');
 
 <div class="login">
     <div class="container">
+        <h1>Please use the username and password that I already sent you by an email.</h1>
 <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
         <div class="col-md-6 " >
             
