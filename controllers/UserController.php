@@ -128,7 +128,11 @@ class UserController extends \yii\web\Controller
     
     public function actionOffer($id, $preferenceid)
     {
+        
         $offer = $this->findOffer($id);
+        if($offer->preference->user_id != Yii::$app->user->id){
+            throw new \yii\web\UnauthorizedHttpException;
+        }
         $preference = $this->findPreference($preferenceid);
         
         return $this->render("offer",[

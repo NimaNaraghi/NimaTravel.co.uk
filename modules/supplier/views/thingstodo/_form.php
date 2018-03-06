@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use kartik\widgets\ActiveForm;
 use kartik\daterange\DateRangePicker;
-
+use kartik\markdown\MarkdownEditor;
 /* @var $this yii\web\View */
 /* @var $model app\modules\supplier\models\ThingsToDo */
 /* @var $form yii\widgets\ActiveForm */
@@ -16,9 +16,15 @@ use kartik\daterange\DateRangePicker;
     
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'highlights')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'highlights')->widget(
+	MarkdownEditor::classname(), 
+	['height' => 300, 'encodeLabels' => false]
+); ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description')->widget(
+	MarkdownEditor::classname(), 
+	['height' => 300, 'encodeLabels' => false]
+); ?>
 
     <?= $form->field($model, 'imageFile')->fileInput() ?>
 

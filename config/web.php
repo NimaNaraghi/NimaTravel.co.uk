@@ -78,6 +78,9 @@ $config = [
         'supplier' => [
             'class' => 'app\modules\supplier\Module'
         ],
+        'markdown' => [
+            'class' => 'kartik\markdown\Module',
+        ],
     ],
     'params' => $params,
     

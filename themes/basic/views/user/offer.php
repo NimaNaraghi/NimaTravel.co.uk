@@ -2,7 +2,8 @@
 use yii\helpers\Html;
 use yii\bootstrap\Carousel;
 use yii\helpers\Url;
-
+use app\assets\MapAsset;
+MapAsset::register($this);
 Url::remember();
 $items = [];
 foreach($offer->offerImages as $image)
@@ -41,4 +42,7 @@ Description: <?= $offer->description ?> <br>
 </div>
 <div class="col-md-4">
     <?= $this->render('_preference',['model' => $preference,'id' => false]) ?>
+    <?php if(isset($offer->longitude) && isset($offer->latitude)): ?>
+    <div id="gmap" style="width:100%; height:300px;" data-long="<?= $offer->longitude ?>" data-lat="<?= $offer->latitude?>"></div>
+    <?php endif; ?>
 </div>
