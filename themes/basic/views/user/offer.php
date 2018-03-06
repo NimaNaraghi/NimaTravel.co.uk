@@ -22,18 +22,18 @@ echo Carousel::widget([
 ]);
 
 ?>
-Location: <?= $offer->location ?> <br>
-Price: <?= Yii::$app->formatter->asCurrency($offer->price) ?> 
 
+Price: <?= Yii::$app->formatter->asCurrency($offer->price) ?> <br>
+Location: <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> <?= $offer->location ?> 
 <?= Html::a("Call",['user/reaction','id' => $offer->id, 'action' => app\modules\supplier\models\Offer::STATUS_CALL],
         ['class' => 'btn btn-warning pull-right', 'role' => 'button']) ?>
 
 <?= Html::a("Reserve",['user/reaction', 'id' => $offer->id,'action' => app\modules\supplier\models\Offer::STATUS_RESERVE]
         ,['class' => 'btn btn-success pull-right', 'role' => 'button']) ?> 
 <br>
-Departure: <?= Yii::$app->formatter->asDate($offer->departure_date) ?> <br>
-Return: <?= Yii::$app->formatter->asDate($offer->return_date) ?> <br>
-Description: <?= $offer->description ?> <br>
+Departure: <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <?= Yii::$app->formatter->asDate($offer->departure_date) ?> <br>
+Return: <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <?= Yii::$app->formatter->asDate($offer->return_date) ?> <br>
+Description: <p><?= $offer->description ?></p> <br>
 <h2> Included These Activities </h2>
 <?php foreach($offer->thingsToDos as $thing){
     echo $this->render('_things',['thing' => $thing]);
