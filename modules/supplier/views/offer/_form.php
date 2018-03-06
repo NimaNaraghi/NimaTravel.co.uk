@@ -4,7 +4,6 @@ use yii\helpers\Html;
 //use yii\widgets\ActiveForm;
 use kartik\widgets\ActiveForm;
 use kartik\daterange\DateRangePicker;
-use kartik\markdown\MarkdownEditor;
 /* @var $this yii\web\View */
 /* @var $model app\modules\supplier\models\Offer */
 /* @var $form yii\widgets\ActiveForm */
@@ -52,10 +51,7 @@ use kartik\markdown\MarkdownEditor;
 
     <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
     
-    <?= $form->field($model,'description')->widget(
-	MarkdownEditor::classname(), 
-	['height' => 300, 'encodeLabels' => false]
-); ?>
+    <?= $form->field($model,'description')->textarea() ?>
 
     <?= $form->field($model, 'longitude')->textInput() ?>
 
