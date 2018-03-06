@@ -205,6 +205,7 @@ class Preference extends \yii\db\ActiveRecord
             'favourite_destinations' => Yii::t('app', 'Favourite Destinations'),
             'comment' => Yii::t('app', 'Comment'),
             'status' => Yii::t('app', 'Status'),
+            'date_range' => 'Dates(required)'
         ];
     }
     

@@ -6,58 +6,77 @@ use yii\helpers\Url;
 <div class="panel panel-default">
   <div class="panel-body">
     Budget :  <?= Yii::$app->formatter->asCurrency($model->max_budget) ?>  <br>
-    Departure Date :  <?= Yii::$app->formatter->asDate($model->departure_date) ?>  <br>
-    Return Date :  <?= Yii::$app->formatter->asDate($model->return_date) ?> <br>
-    Climate : <?php 
+    Departure Date : <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <?= Yii::$app->formatter->asDate($model->departure_date) ?>  <br>
+    Return Date : <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>  <?= Yii::$app->formatter->asDate($model->return_date) ?> <br>
+    <?php 
         foreach($model->climates as $climate)
         {
-            echo $climate->title . " ";
+            echo '<button class="btn btn-xs btn-primary active">'.$climate->title.'</button>';
         }
     ?> <br>
-    Activity : <?php 
+    <div>
+    <?php 
                     foreach($model->activities as $activity)
                     {
-                        echo $activity->title . " ";
+                        echo '<button class="btn btn-xs btn-primary active">'.$activity->title .'</button>';
                     }
-                    ?> <br>
-    Style : <?php 
+                    ?>
+    </div>
+    <div>
+    <?php 
         foreach($model->styles as $style)
         {
-            echo $style->title . " ";
+            echo '<button class="btn btn-xs btn-primary active">'.$style->title.'</button>';
         }
-        ?> <br>
-    Accommodation Features : <?php 
+        ?> 
+    </div>
+    <div>
+    <?php 
         foreach($model->accommodationFeatures as $feature)
         {
-            echo $feature->title . " ";
+            echo '<button class="btn btn-xs btn-primary active">'.$feature->title.'</button>';
         }
-    ?> <br>
-    Accessibility : <?php 
+    ?> 
+    </div>
+    <div>
+    <?php 
         foreach($model->accessibilities as $accessibility)
         {
-            echo $accessibility->title . " ";
+            echo '<button class="btn btn-xs btn-primary active">'.$accessibility->title.'</button>';
         }
-    ?> <br>
-    Board Basis : <?php 
+    ?> 
+    </div>
+    <div>
+    <?php 
         foreach($model->boardBases as $bb)
         {
-            echo $bb->title . " ";
+            echo '<button class="btn btn-xs btn-primary active">'.$bb->title.'</button>';
         }
-    ?> <br>
+    ?> 
+    </div>
+    <div>
+    <?php 
+        foreach($model->videos as $video)
+        {
+            echo '<button class="btn btn-xs btn-primary active">'.$video->title.'</button>';
+        }
+    ?> 
+    </div>
     <?php
         if($id != false){
             if($model->id == $id){
-                $active = " active";
+                $active = " btn-warning active";
             }else{
-                $active = "";
+                $active = " btn-info";
             }
             echo Html::a("Show Offers<span class=\"glyphicon glyphicon-chevron-right\" aria-hidden=\"true\"></span>",
-                ['user/offers','id'=>$model->id],['class' => 'btn btn-info pull-right' . $active,'role'=>'btn']);
+                ['user/offers','id'=>$model->id],['class' => 'btn pull-right' . $active,'role'=>'btn']);
         }else{
             echo Html::a("<span class=\"glyphicon glyphicon-chevron-left\" aria-hidden=\"true\"></span> Back to all offers",
                 ['user/offers','id'=>$model->id],['class' => 'btn btn-info pull-right','role'=>'btn']);
         }
     ?>
+    
   </div>
 </div>
 

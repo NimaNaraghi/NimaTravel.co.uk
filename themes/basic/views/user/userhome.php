@@ -22,7 +22,8 @@ $this->title = Yii::t('app', 'Preferences');
     
         echo $form->field($preferenceForm, 'date_range', [
             'addon'=>['prepend'=>['content'=>'<i class="glyphicon glyphicon-calendar"></i>']],
-            'options'=>['class'=>'drp-container form-group']
+            'options'=>['class'=>'drp-container form-group'],
+            
         ])->widget(DateRangePicker::classname(), [
             'useWithAddon'=>true
         ]);

@@ -13,33 +13,37 @@ use yii\helpers\Url;
           </div>
           <div class="media-body">
               <h4 class="media-heading">Price :  <?= Yii::$app->formatter->asCurrency($model->price) ?> </h4>
-              Date :  <?= Yii::$app->formatter->asDate($model->preference->departure_date) ?> <br>
-              To :  <?= Yii::$app->formatter->asDate($model->preference->return_date) ?> <br>
-              Location : <?= $model->location ?> <br>
+              From : <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <?= Yii::$app->formatter->asDate($model->preference->departure_date) ?> <br>
+              To : <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> <?= Yii::$app->formatter->asDate($model->preference->return_date) ?> <br>
+              Location : <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> <?= $model->location ?> <br>
+                <div>
                 Climate : <?php 
                     foreach($model->preference->climates as $climate)
                     {
-                        echo $climate->title . " ";
+                        echo '<button class="btn btn-xs btn-success active">' . $climate->title . "</button> ";
                     }
-                    ?> <br>
+                    ?> </div>
+               <div>
                 Activity : <?php 
                     foreach($model->preference->activities as $activity)
                     {
-                        echo $activity->title . " ";
+                        echo '<button class="btn btn-xs btn-success active">' . $activity->title . "</button> ";
                     }
-                    ?> <br>
+                    ?> </div>
+               <div>
                 Style : <?php 
                     foreach($model->preference->styles as $style)
                     {
-                        echo $style->title . " ";
+                        echo '<button class="btn btn-xs btn-success active">' . $style->title . "</button> ";
                     }
-                    ?> <br>
+                    ?> </div>
+               <div>
                 Accessibility : <?php 
                     foreach($model->preference->accessibilities as $accessibility)
                     {
-                        echo $climate->accessibility . " ";
+                        echo '<button class="btn btn-xs btn-success active">' . $accessibility->title . "</button> ";
                     }
-                    ?> <br>
+                    ?> </div>
           <?= Html::a("Details",Url::to(['user/offer','id' => $model->id,'preferenceid' => $preferenceId]),
                   ['class'=>"btn btn-primary pull-right",'role'=>'button']) ?>
           </div>

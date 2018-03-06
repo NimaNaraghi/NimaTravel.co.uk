@@ -13,6 +13,7 @@ use app\models\Preference;
 use app\modules\supplier\models\Offer;
 use yii\filters\VerbFilter;
 use yii\web\Response;
+use yii\web\NotFoundHttpException;
 
 class UserController extends \yii\web\Controller
 {
@@ -102,12 +103,16 @@ class UserController extends \yii\web\Controller
         }else{
             $preference = $this->findPreference($id);
         }
-
+        
         
         //die(var_dump($preference));
         if($preference != null){
+            if($preference->user_id != Yii::$app->user->id){
+                throw new \yii\web\UnauthorizedHttpException;
+            }
             $preferenceDataProvider = new ActiveDataProvider([
-                'query' => Preference::find()->where(['user_id' => Yii::$app->user->identity->id])
+                'query' => Preference::find()->where(['user_id' => Yii::$app->user->identity->id]),
+                'sort'=> ['defaultOrder' => ['id'=>SORT_DESC]]
             ]);
             
 //            $query = $this->buildOfferQuery($id,$preference);

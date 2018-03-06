@@ -13,6 +13,7 @@ use app\models\SignupForm;
 use app\models\User;
 use app\models\PasswordResetRequestForm;
 use app\models\ResetPasswordForm;
+use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
 {
