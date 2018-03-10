@@ -5,7 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-    'name' => 'Genie Travel',
+    'name' => 'NimaTravel.CO.UK',
     'defaultRoute' => 'site/how',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],

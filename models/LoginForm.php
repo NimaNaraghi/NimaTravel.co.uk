@@ -4,7 +4,8 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
-
+use yii\helpers\Url;
+use yii\helpers\Html;
 /**
  * LoginForm is the model behind the login form.
  *
@@ -20,7 +21,7 @@ class LoginForm extends Model
 
     private $_user = false;
 
-
+    public $PIS;
     /**
      * @return array the validation rules.
      */
@@ -33,7 +34,26 @@ class LoginForm extends Model
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
+            ['PIS', 'validateAgreement'],
+            ['PIS', 'required'],
         ];
+    }
+    
+    public function attributeLabels()
+    {
+        return [
+            
+            'PIS' => "I read and understood the terms in Participant Information Sheet" ,
+        ];
+    }
+    
+    
+    public function validateAgreement($attribute, $params, $validator)
+    {
+        //die(var_dump($attribute));
+        if ($this->$attribute != TRUE) {
+            $this->addError($attribute, Yii::t('app','You must confirm that you agree with the content of Participant Information Sheet'));
+        }
     }
 
     /**

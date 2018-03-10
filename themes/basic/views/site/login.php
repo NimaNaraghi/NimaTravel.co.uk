@@ -6,6 +6,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use kartik\widgets\ActiveForm;
+use yii\bootstrap\Modal;
 
 $this->title = Yii::t('app','Login');
 ?>
@@ -23,7 +24,8 @@ $this->title = Yii::t('app','Login');
            
             
             <a  href="#">
-
+               
+<?= $form->field($model, 'PIS')->checkbox() . Html::button('Participant Information Sheet',['class' => 'btn btn-danger btn-xs ','data-toggle'=>'modal', 'data-target' => '#pis']) ; ?>
 <?= $form->field($model, 'rememberMe')->checkbox(); ?>
             </a>
             <div class="form-group">
@@ -34,3 +36,15 @@ $this->title = Yii::t('app','Login');
     </div>
 
 </div>
+
+<?php
+Modal::begin([
+    'header' => '<h2>P.I.S</h2>',
+    'size' => 'modal-lg',
+    'id' => 'pis'
+]);
+
+echo \file_get_contents(Yii::$app->basePath.'/themes/basic/views/site/pis.html');
+
+Modal::end();
+?>

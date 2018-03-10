@@ -4,43 +4,40 @@ use yii\helpers\Url;
 
 $this->title = "How it works";
 ?>
-<h1 class='ben-header'>Hello! My name is Nima Naraghi. I research to figure out whether the story below is true.</h1>
+<h1 class='ben-header'>Hello! My name is Nima Naraghi. I seek to figure out whether the story below is true.</h1>
 <div class="row">
     <div class="col-md-6">
 
         <div class="col-md-5">
-            <h4> This is Mr. Incredible before using this website</h4>
+            <h4> This is Ben</h4>
             <ul class=" ben">
 
-                <li> Mr. Incredible browses many sources on the Internet to plan his travel </li>
-                <li> Mr. Incredible often spends a lot of time and energy to plan his holiday </li>
-                <li> Mr. Incredible finds it frustrating to choose among infinite numbers of accommodation and flight options </li> 
-                <li> Despite all the efforts, the travels are not satisfactory eventually </li>
-                <li> Mr. Incredible is confused because planning a travel is more complicated than he expects </li>
+                <li> Ben browses many sources on the Internet to plan his travel </li>
+                <li> Ben often spends a lot of time and energy to plan his holiday </li>
+                <li> Ben finds it frustrating to choose among infinite numbers of accommodations, flight, timings, and prices </li>
+                <li> Ben is confused because planning a travel is more complicated than he expects </li>
             </ul>
             
         </div>
         <div class="col-md-7">
-            <?php echo Html::img(Yii::$app->homeUrl."/images/mr1.jpg",['class' => 'img img-responsive']); ?>
-            <?php echo Html::img(Yii::$app->homeUrl."/images/mr2.jpg",['class' => 'img img-responsive']); ?>
+            <?php echo Html::img(Yii::$app->homeUrl."/images/cmen1.jpeg",['class' => 'img img-responsive']); ?>
+            
         </div>
         
     </div>
     <div class="col-md-6">
         <div class="col-md-5">
-            <h4> Mr. Incredible after using this website </h4>
-            <ul class=" ben">
-
-                <li> Mr. Incredible register his preferences </li>
-                <li> Mr. Incredible spend more time with his family </li>
+            <h4> This is Jane </h4>
+            <ul class="ben">
+                <li> Jane registers her preferences on this website </li>
                 <li> Travel agents, experts, and various suppliers around the globe review his interests </li>
-                <li> Mr. Incredible receives offers tailored to his interests without spending hours browsing the Internet </li>
-                <li> The travel goes as he expected  </li>
+                <li> Jane receives offers tailored to her interests without spending hours browsing the Internet </li>
+                <li> Jane believes that it is a different experience but it completely worth it </li>
             </ul>
         </div>
         <div class="col-md-7">
-            <?php echo Html::img(Yii::$app->homeUrl."/images/mr6.jpg",['class' => 'img img-responsive']); ?>
-            <?php echo Html::img(Yii::$app->homeUrl."/images/mr4.jpg",['class' => 'img img-responsive']); ?>
+            <?php echo Html::img(Yii::$app->homeUrl."/images/confident.jpg",['class' => 'img img-responsive']); ?>
+            
         </div>
     </div>
 </div>
