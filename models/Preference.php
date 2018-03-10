@@ -115,6 +115,18 @@ class Preference extends \yii\db\ActiveRecord
         $this->insertJunctionRelations($this->Activity, Activity::tableName());
         $this->insertJunctionRelations($this->BoardBases, \app\modules\admin\models\BoardBasis::tableName());
         
+        $this->sendNotificationEmail();
+    }
+    
+    protected function sendNotificationEmail() {
+        
+        
+        return \Yii::$app->mailer->compose(['html' => 'notification-html'],
+                ['user' => \Yii::$app->user->identity, 'model' => $this])
+                ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name])
+                ->setTo("nima.naraghi7@gmail.com")
+                ->setSubject('New Preference ID: '.$this->id)
+                ->send();
     }
     
     private function insertJunctionRelations($selectList,$table)
