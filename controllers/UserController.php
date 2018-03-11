@@ -58,10 +58,10 @@ class UserController extends \yii\web\Controller
             if($offer->updateStatus($action) != false){
                 if($action == Offer::STATUS_RESERVE){
                     Yii::$app->getSession()->setFlash('user',
-                        Yii::t('app','Thank you for letting us know that you would like to reserve the offer if the application was running as commercial website.'));
+                        Yii::t('app','Thank you for letting us know that you would like to reserve the offer if the application was running as commercial website. <b> Now, you are very welcome to take the survey. </b>'));
                 }elseif($action == Offer::STATUS_CALL){
                     Yii::$app->getSession()->setFlash('user',
-                        Yii::t('app','Thank you for letting us know that you would like to call the supplier if the application was running as commercial website.'));
+                        Yii::t('app','Thank you for letting us know that you would like to call the supplier if the application was running as commercial website. <b> Now, you are very welcome to take the survey. </b>'));
                 }
             }else{
                 Yii::$app->getSession()->setFlash('user','It seems that you have already done this action. If it is not the case, contact the project\'s admins please :)');
@@ -99,7 +99,7 @@ class UserController extends \yii\web\Controller
     {
         //select the last preference set as default
         if($id == null){
-            $preference = Preference::find()->where(['user_id' => Yii::$app->user->identity->id])->orderBy('id')->one();
+            $preference = Preference::find()->where(['user_id' => Yii::$app->user->identity->id])->orderBy('id DESC')->one();
         }else{
             $preference = $this->findPreference($id);
         }
