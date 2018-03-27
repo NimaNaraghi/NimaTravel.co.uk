@@ -153,10 +153,17 @@ class OfferController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model->setReadableDateRange();
+        
+        if ($model->load(Yii::$app->request->post())) {
+            
+            $model->setDates();
+            
+            if($model->save()){
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+        
 
         return $this->render('update', [
             'model' => $model,

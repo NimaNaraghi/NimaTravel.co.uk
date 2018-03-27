@@ -57,13 +57,7 @@ use kartik\daterange\DateRangePicker;
 
     <?= $form->field($model, 'latitude')->textInput() ?>
 
-    <?= $form->field($model, 'transfer')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'return_transfer')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'luggage_allowance')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'out_link')->textInput(['maxlength' => true]) ?>
+    
 
 
     <div class="form-group">

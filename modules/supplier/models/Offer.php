@@ -67,8 +67,10 @@ class Offer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            ['date_range', 'validateDateRange','skipOnEmpty' => false],
-            [['title', 'price', 'departure_date', 'return_date'], 'required'],
+            //['date_range', 'validateDateRange','skipOnEmpty' => false],
+            ['date_range','safe'],
+            [['departure_date','return_date'], 'default','value'=>0],
+            [['title', 'price','board_basis_id'], 'required'],
             [['board_basis_id', 'departure_date', 'return_date', 'created_at', 'status'], 'integer'],
             [['price', 'longitude', 'latitude'], 'number'],
             [['title', 'location', 'transfer', 'return_transfer', 'luggage_allowance', 'out_link'], 'string', 'max' => 255],
@@ -91,10 +93,14 @@ class Offer extends \yii\db\ActiveRecord
     
     public function setDates()
     {
-        $dates = explode(" - ", $this->date_range);
-        
-        $this->departure_date = strtotime($dates[0]);
-        $this->return_date = strtotime($dates[1]);
+        if($this->date_range){
+            $dates = explode(" - ", $this->date_range);
+
+            $this->departure_date = strtotime($dates[0]);
+            $this->return_date = strtotime($dates[1]);
+        }
+//        var_dump($this->date_range);
+//        die;
         
     }
     

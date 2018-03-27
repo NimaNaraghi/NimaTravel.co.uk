@@ -73,11 +73,11 @@ class PreferenceController extends Controller
             }
         }
         
-        $offer = new Offer();
-        if ($offer->load(Yii::$app->request->post()) ){
-            $offer->offer_id = $id;
-            $offer->save();
-        }
+//        $offer = new Offer();
+//        if ($offer->load(Yii::$app->request->post()) ){
+//            $offer->offer_id = $id;
+//            $offer->save();
+//        }
         
         $offerSearch = new OfferSearch();
         $offerDataProvider = $offerSearch->search(Yii::$app->request->queryParams,['preferenceId' => $id]);

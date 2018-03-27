@@ -77,9 +77,8 @@ class Preference extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            
+            [['adults','max_budget'],'required'],
             ['date_range', 'validateDateRange','skipOnEmpty' => false],
-            ['adults','validateDateRange'],
             [['adults', 'children', 'status','departure_date','return_date'], 'integer'],
             [['max_budget'], 'number'],
             [['favourite_destinations', 'comment'], 'string'],
