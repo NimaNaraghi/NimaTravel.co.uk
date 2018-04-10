@@ -14,8 +14,10 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $password_repeat;
     public $honeypot;
     //public $termsAgreement;
+    public $PIS;
 
     /**
      * @inheritdoc
@@ -23,20 +25,22 @@ class SignupForm extends Model
     public function rules()
     {
         return [
-            [['username'], 'filter', 'filter' => 'trim'],
-            [['username'], 'required'],
+//            [['username'], 'filter', 'filter' => 'trim'],
+//            [['username'], 'required'],
+            ['username', 'default', 'value' => substr(md5(time()),0,12)],
             ['username', 'unique', 'targetClass' => 'app\models\User', 'message' => Yii::t('app','This username has already been taken.')],
             ['username', 'string', 'min' => 2, 'max' => 255],
-            //['username', 'default', 'value' => substr(md5(time()),0,12)],
-//            ['termsAgreement', 'validateAgreement'],
-//            ['termsAgreement', 'required'],
-//            ['email', 'filter', 'filter' => 'trim'],
-//            ['email', 'required'],
-//            ['email', 'email'],
-//            ['email', 'unique', 'targetClass' => 'app\models\User', 'message' => Yii::t('app','This email address has already been taken.')],
-            ['email', 'default' , 'value' => substr(md5(time()),0,12) . "@genietravel.uws.ac.uk"],
+            
+            ['PIS', 'validateAgreement'],
+            ['PIS', 'required'],
+            ['email', 'filter', 'filter' => 'trim'],
+            ['email', 'required'],
+            ['email', 'email'],
+            ['email', 'unique', 'targetClass' => 'app\models\User', 'message' => Yii::t('app','This email address has already been taken.')],
+            ['email', 'default' , 'value' => substr(md5(time()),0,12) . "@nimatravel.co.uk"],
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+            ['password_repeat', 'compare','compareAttribute' => 'password'],
             //['username', 'string', 'min' => 6],
             
             
@@ -48,7 +52,7 @@ class SignupForm extends Model
     {
         //die(var_dump($attribute));
         if ($this->$attribute != TRUE) {
-            $this->addError($attribute, Yii::t('app','You must agree our term to register.'));
+            $this->addError($attribute, Yii::t('app','You must confirm that you agree with the content of Participant Information Sheet'));
         }
     }
     
@@ -97,14 +101,14 @@ class SignupForm extends Model
         }
     }
     
-	public function attributeLabels()
+    public function attributeLabels()
     {
         return [
             'username' => Yii::t('app', 'Username'),
             'password' => Yii::t('app', 'Password'),
             'password_repeat' => Yii::t('app', 'Password Confirm'),
             'email' => Yii::t('app', 'Email'),
-            'termsAgreement' => Yii::t('app','I agree with '),
+            'PIS' => "I read and understood the terms in Participant Information Sheet" ,
         ];
     }
 }

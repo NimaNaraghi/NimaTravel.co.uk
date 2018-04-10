@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            'max_budget:currency',
             [
                 'attribute' => 'user_id',
                 'content' => function($data){
@@ -32,6 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'created_at:datetime',
+            [
+                'label' => 'email',
+                'content' => function($model){
+                    return $model->user->email;
+                }
+            ],
 //            'updated_at',
 //            'departure_date:date',
 //            'return_date:date',

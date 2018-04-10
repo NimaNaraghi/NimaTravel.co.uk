@@ -13,38 +13,22 @@ $this->title = Yii::t('app','Login');
 
 <div class="login">
     <div class="container">
-        <h1>Please use the username and password that I already sent you by an email.</h1>
+        <h3>Please use the username and password that I already sent you by an email. If you have not them you have to signup first.</h3>
 <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
-        <div class="col-md-6 " >
+        <div class="col-md-6">
             
-<?= $form->field($model, 'username')->textInput(['class' => null, 'placeholder' => Yii::t('app', 'Username')]); ?>	
+<?= $form->field($model, 'email')->textInput(['class' => null, 'placeholder' => Yii::t('app', 'email')]); ?>	
             
             
 <?= $form->field($model, 'password')->passwordInput(['class' => null, 'placeholder' => Yii::t('app', 'Password')]) ?>
-           
-            
-            <a  href="#">
-               
-<?= $form->field($model, 'PIS')->checkbox() . Html::button('Participant Information Sheet',['class' => 'btn btn-danger btn-xs ','data-toggle'=>'modal', 'data-target' => '#pis']) ; ?>
 <?= $form->field($model, 'rememberMe')->checkbox(); ?>
-            </a>
             <div class="form-group">
                 <?= Html::submitButton(Yii::t('app', 'Login'), ['class' => 'btn btn-success']) ?>
             </div>
         </div> 
         <?php ActiveForm::end(); ?>
+You have NOT signed up yet? <?= Html::a('Signup',['site/signup'],['class'=>'btn btn-primary','role'=>'button']) ?>
     </div>
 
 </div>
 
-<?php
-Modal::begin([
-    'header' => '<h2>P.I.S</h2>',
-    'size' => 'modal-lg',
-    'id' => 'pis'
-]);
-
-echo \file_get_contents(Yii::$app->basePath.'/themes/basic/views/site/pis.html');
-
-Modal::end();
-?>

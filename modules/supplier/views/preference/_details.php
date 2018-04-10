@@ -10,6 +10,10 @@ use yii\widgets\DetailView;
                 'attribute' => 'user_id',
                 'value' => $model->user->username,
             ],
+            [
+                    'label' => 'email',
+                    'value' => $model->user->email,
+                ],
             'created_at:date',
 //            'updated_at',
             'departure_date:date',

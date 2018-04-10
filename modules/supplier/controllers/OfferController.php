@@ -37,6 +37,23 @@ class OfferController extends Controller
             ],
         ];
     }
+    
+    public function actionNotify($email) {
+    
+        $result = \Yii::$app->mailer->compose(['html' => 'user-notification-html'],
+                ['user' => \Yii::$app->user->identity, 'model' => $this])
+                ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name])
+                ->setTo($email)
+                ->setSubject('Your travel offers are ready! (Final Step of your participation)')
+                ->send();
+        if($result){
+                Yii::$app->getSession()->setFlash('supplier',Yii::t('app','The notification was sent successfuly!'));
+        }else{
+                Yii::$app->getSession()->setFlash('supplier',Yii::t('app','Sending notification failed.'));
+        }
+        return $this->goBack();
+    }
+    
 
     /**
      * Lists all Offer models.

@@ -30,9 +30,9 @@ $this->title = Yii::t('app', 'Preferences');
         
         echo $form->field($preferenceForm, 'max_budget', [
             'template' => '{label}<div class="input-group"><span class="input-group-addon">£</span>{input}</div>{hint}{error}'])
-                ->textInput(['class' => null,'autofocus' => true]);
+                ->textInput(['class' => null,'autofocus' => true])->label('Maximum Budget (Required)');
         
-        echo $form->field($preferenceForm, 'adults');
+        echo $form->field($preferenceForm, 'adults')->label('Adults (Required)');
         echo $form->field($preferenceForm, 'children');
         echo $form->field($preferenceForm, 'comment')->textarea();
         echo $form->field($preferenceForm, 'departure_location');

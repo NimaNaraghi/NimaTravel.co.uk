@@ -28,6 +28,11 @@ AppAsset::register($this);
 
 <div class="wrap">
     <?php
+    if(!Yii::$app->user->isGuest && Yii::$app->user->identity->canSurvey()){
+        echo Html::a('Survey', 'https://s.surveyplanet.com/ry0tK6g_G',['class'=>'btn btn-danger btn-lg pull-right btn-survey','id'=>'survey']);
+    }else{
+        echo Html::a('Survey', 'https://s.surveyplanet.com/ry0tK6g_G',['class'=>'btn btn-danger btn-lg pull-right btn-survey disabled']);
+    }
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
         'brandUrl' => Yii::$app->homeUrl,
@@ -35,11 +40,7 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    if(!Yii::$app->user->isGuest && Yii::$app->user->identity->canSurvey()){
-        echo Html::a('Survey', 'https://s.surveyplanet.com/ry0tK6g_G',['class'=>'btn btn-danger btn-lg pull-right btn-survey','id'=>'survey']);
-    }else{
-        echo Html::a('Survey', 'https://s.surveyplanet.com/ry0tK6g_G',['class'=>'btn btn-danger btn-lg pull-right btn-survey disabled']);
-    }
+    
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
@@ -47,15 +48,16 @@ AppAsset::register($this);
             ['label' => 'Preferences', 'url' => ['/user/user-home']],
             ['label' => 'Offers', 'url' => ['/user/offers']],
             ['label' => 'How It Works', 'url' => ['/site/how']],
+            ['label' => 'Contact Us', 'url' => ['/site/contact']],
             Yii::$app->user->can('admin') ? (
             ['label' => 'Admin', 'url' => ['/admin']]
                     ) : '',
             Yii::$app->user->can('admin') ? (
             ['label' => 'Supplier', 'url' => ['/supplier']]
                     ) : '',
-            Yii::$app->user->can('admin') ? (
-            ['label' => 'Signup', 'url' => ['/site/signup']]
-                    ) : '',
+            //Yii::$app->user->can('admin') ? (
+            ['label' => 'Signup', 'url' => ['/site/signup']],
+             //       ) : '',
             
             
             Yii::$app->user->isGuest ? (

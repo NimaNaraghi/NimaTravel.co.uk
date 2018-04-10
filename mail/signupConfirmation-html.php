@@ -7,20 +7,19 @@ use yii\widgets\DetailView;
 
 
 ?>
-<div >
-    <p ><?= Yii::t('app','Hello') . '!' ?></p>
-
-    <p ><?= Yii::t('app','Thank you very much for your registration!') ?></p>
-    
-    <p ><?= Yii::t('app','Please click on the link below to active your account: ') ?></p>
-    <p >
-    <?= \yii\helpers\Html::a(Yii::t('app','Click Here,Please!'),
+<div>
+Dear Participant,<br>
+<p>
+    Please follow the link below to activate your account and plan your travel!<br>
+<?= \yii\helpers\Html::a(Yii::t('app','Click here to begin!'),
                 Yii::$app->urlManager->createAbsoluteUrl(['site/confirm',
                     'id'=>$user->id,
                     'key'=>$user->auth_key])
             ); 
     ?>
-    </p>
-    
-    
+</p>
+
+Kind Regards,<br>
+Nima Naraghi<br>
+
 </div>

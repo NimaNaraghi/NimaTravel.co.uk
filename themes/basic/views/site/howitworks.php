@@ -44,7 +44,7 @@ $this->title = "How it works";
 <h2>Would you like to help me? Great! This is how your participation works</h2>
 
 <ul class="ben">
-    <li>You register your preferences <a href="<?= Url::to(['/user/user-home']) ?>">here</a></li>
+    <li>You register your preferences <a href="<?= Url::to(['/user/user-home']) ?>">here</a>&nbsp; <small> [<a href="<?= Url::to(['/site/signup']) ?>"> Signup here </a> you do not have an account or access info.</small>]</li>
     <li> You can leave and wait for an email that lets you that your offers are ready.</li>
     <li> You will check the <a href="<?= Url::to(['/user/user-home']) ?>">offers</a> </li>
     <li>Finally, the survey button on the top menu will be enabled to navigate you to a survey to give us your feedback.</li>

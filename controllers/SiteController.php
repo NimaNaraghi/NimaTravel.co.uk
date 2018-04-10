@@ -112,15 +112,15 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post())) {
            
             if ($user = $model->signup()) {
-                $this->confirm($user);
+                //$this->confirm($user);
                 if (Yii::$app->getUser()->login($user)) {
-//                    $email = $this->sendConfirmationEmail($user);
-//                    if($email){
-//                        Yii::$app->getSession()->setFlash('user_confirm_message',Yii::t('app','We sent you an email to active your account. Please, check your email!. Sometimes you may find it in SPAMS folder.'));
-//                    }
-//                    else{
-//                        Yii::$app->getSession()->setFlash('user_confirm_message',Yii::t('app','Signup failed. Please contact admin.'));
-//                    }
+                    $email = $this->sendConfirmationEmail($user);
+                    if($email){
+                        Yii::$app->getSession()->setFlash('user',Yii::t('app','We sent you an email to active your account. Please, check your email!. Sometimes you may find it in SPAMS folder.'));
+                    }
+                    else{
+                        Yii::$app->getSession()->setFlash('user',Yii::t('app','Signup failed. Please contact admin.'));
+                    }
                     return $this->goHome();
                 }
             }
@@ -137,8 +137,8 @@ class SiteController extends Controller
                 ->setTo($user->email)
                 ->setFrom([\Yii::$app->params['supportEmail'] => \Yii::$app->name])
                 ->setSubject(Yii::t('app','Signup Confirmation'))
-//                ->setTextBody(Yii::t('app',"Click this link ").\yii\helpers\Html::a(Yii::t('app','confirm'),
-//                Yii::$app->urlManager->createAbsoluteUrl(['site/confirm','id'=>$user->id,'key'=>$user->auth_key])))
+                ->setTextBody(Yii::t('app',"Click this link ").\yii\helpers\Html::a(Yii::t('app','confirm'),
+                Yii::$app->urlManager->createAbsoluteUrl(['site/confirm','id'=>$user->id,'key'=>$user->auth_key])))
                 ->send();
     }
 
@@ -154,48 +154,35 @@ class SiteController extends Controller
        
         return $user->save();
     }
-
-    public function actionRequestPasswordReset()
-    {
-        $model = new PasswordResetRequestForm();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            if ($model->sendEmail()) {
-                Yii::$app->getSession()->setFlash('reset_password', 'Check your email for further instructions.');
-
-                return $this->goHome();
-            } else {
-                Yii::$app->getSession()->setFlash('reset_password', 'Sorry, we are unable to reset password for email provided.');
-            }
-        }
-
-        return $this->render('requestPasswordResetToken', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionResetPassword($token)
-    {
-        try {
-            $model = new ResetPasswordForm($token);
-        } catch (InvalidParamException $e) {
-            throw new BadRequestHttpException($e->getMessage());
-        }
-
-        if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-            Yii::$app->getSession()->setFlash('success', 'New password was saved.');
-
-            return $this->goHome();
-        }
-
-        return $this->render('resetPassword', [
-            'model' => $model,
-        ]);
-    }
     
-    public function actionTermsAndConditions()
+    public function actionConfirm($id, $key)
     {
-        return $this->render('terms-and-conditions');
+        $user = User::find()->where([
+            'id'=>$id,
+            'auth_key'=>$key,
+            'status'=>User::STATUS_DELETED,
+        ])->one();
+
+        if(!empty($user)){
+            $user->status = User::STATUS_ACTIVE;
+            $auth = Yii::$app->authManager;
+            
+            $touristRole = $auth->getRole('tourist');
+//            $touristRole = $auth->getRole('admin');
+            $auth->assign($touristRole, $user->getId());
+            
+            $user->save();
+            Yii::$app->getSession()->setFlash('user',Yii::t('app','Congratulations! Your account is active now!'));
+        }
+        else{
+            Yii::$app->getSession()->setFlash('user',Yii::t('app','Sorry :( Something went wrong. Please, contact admin.'));
+        }
+        //$user->login();
+        return $this->redirect(['user/user-home']);
     }
+
+    
+    
 
 
     /**
@@ -205,12 +192,7 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
-//        $model = new ContactForm();
-//        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
-//            Yii::$app->session->setFlash('contactFormSubmitted');
-//
-//            return $this->refresh();
-//        }
+
         return $this->render('contact');
     }
 

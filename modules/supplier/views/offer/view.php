@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a(Yii::t('app', 'Send Notification To The User!'), ['offer/notify', 'email' => $model->preference->user->email], ['class' => 'btn btn-warning']) ?>
     </p>
         <?= DetailView::widget([
             'model' => $model,
@@ -34,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute' => 'user_id',
                     'value' => $model->user->username,
                 ],
+                
                 'board_basis_id',
                 'title',
                 'price:currency',
@@ -81,3 +83,4 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 </div>
+<?= $this->render('_messages') ?>

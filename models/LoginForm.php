@@ -29,23 +29,23 @@ class LoginForm extends Model
     {
         return [
             // username and password are both required
-            [['username', 'password'], 'required'],
+            [['email', 'password'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
             ['password', 'validatePassword'],
-            ['PIS', 'validateAgreement'],
-            ['PIS', 'required'],
+
         ];
     }
-    
     public function attributeLabels()
     {
         return [
             
-            'PIS' => "I read and understood the terms in Participant Information Sheet" ,
+            'email' => 'Email or Username',
+            
         ];
     }
+
     
     
     public function validateAgreement($attribute, $params, $validator)
@@ -69,7 +69,7 @@ class LoginForm extends Model
             $user = $this->getUser();
 
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+                $this->addError($attribute, 'Incorrect username/email or password.');
             }
         }
     }
@@ -94,7 +94,11 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+            if(filter_var($this->email, FILTER_VALIDATE_EMAIL)){
+                $this->_user = User::findByEmail($this->email);
+            }else{
+                $this->_user = User::findByUsername($this->email);
+            }
         }
 
         return $this->_user;
